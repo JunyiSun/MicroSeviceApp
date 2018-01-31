@@ -14,11 +14,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Random;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -37,18 +33,13 @@ import javax.ws.rs.core.Response;
 public class DemoData {
 
   private static final String KEY_ID = "id";
-  private static final String KEY_OCCASION_DATE = "year-month-day";
 
   private static final String BOOT_FILE_USERS = "users.json";
   private static final String BOOT_FILE_GROUPS = "groups.json";
-  private static final String BOOT_FILE_OCCASIONS = "occasions.json";
-
-  private static final int OCCASION_DATE_FUDGE_LOWER_BOUND = 90;
-  private static final int OCCASION_DATE_FUDGE_RANDOM_UPPER_BOUND = 200;
 
   private static String userServiceURL;
   private static String groupServiceURL;
-  private static String occasionServiceURL;
+
   private static String authServiceURL;
 
   // Map temp ids in json files to the official ids returned when the objects
@@ -56,20 +47,18 @@ public class DemoData {
   private static HashMap<String, String> userIds = new HashMap<String, String>();
   private static HashMap<String, String> groupIds = new HashMap<String, String>();
 
-  // JWT returned from user service to use for creating groups and occasions
+  // JWT returned from user service to use for creating groups
   private static String jwt = null;
 
   public static void main(String[] args) {
 
-    if (args.length != 8) {
+    if (args.length != 6) {
       System.err.println(
           "Usage: This jar expects eight arguments specifying host and ports for four services in the following order: \n\n"
               + "user server hostname\n"
               + "user server https port\n"
               + "group server hostname\n"
               + "group server https port\n"
-              + "occasion server hostname\n"
-              + "occasion server https port\n"
               + "auth server hostname\n"
               + "auth server https port");
 
@@ -80,20 +69,19 @@ public class DemoData {
     String userPort = args[1];
     String groupHost = args[2];
     String groupPort = args[3];
-    String occasionHost = args[4];
-    String occasionPort = args[5];
-    String authHost = args[6];
-    String authPort = args[7];
+
+    String authHost = args[4];
+    String authPort = args[5];
 
     userServiceURL = "https://" + userHost + ":" + userPort + "/users";
     groupServiceURL = "https://" + groupHost + ":" + groupPort + "/groups";
-    occasionServiceURL = "https://" + occasionHost + ":" + occasionPort + "/occasions";
+
     authServiceURL = "https://" + authHost + ":" + authPort + "/auth";
 
     try {
       parseUsers();
       parseGroups();
-      parseOccasions();
+
     } catch (IOException e1) {
       e1.printStackTrace();
     }
@@ -197,58 +185,6 @@ public class DemoData {
     }
   }
 
-  /** Populates the Occasion microservice database with pre-defined occasions. */
-  private static void parseOccasions() throws IOException {
-    final URL occasions =
-        Thread.currentThread().getContextClassLoader().getResource(BOOT_FILE_OCCASIONS);
-    assert occasions != null : "Failed to load '" + BOOT_FILE_OCCASIONS + "'";
-
-    final JsonReaderFactory factory = Json.createReaderFactory(null);
-    JsonReader reader = factory.createReader(occasions.openStream());
-
-    final JsonArray jsonOccasions = reader.readArray();
-
-    // Send a request to the occasion service to add new occasions.
-    Random random = new Random();
-    for (JsonValue occasionJsonValue : jsonOccasions) {
-      try {
-
-        String occasionPayload = occasionJsonValue.toString();
-
-        // Replace userIds with official userIds
-        for (String userId : userIds.keySet()) {
-          occasionPayload = occasionPayload.replaceAll(userId, userIds.get(userId));
-        }
-
-        // Replace groupIds with official groupIds
-        for (String groupId : groupIds.keySet()) {
-          occasionPayload = occasionPayload.replaceAll(groupId, groupIds.get(groupId));
-        }
-
-        // Replace the date entry with a date between 90 and 200 days
-        // from the current date.
-        int fudge =
-            OCCASION_DATE_FUDGE_LOWER_BOUND
-                + random.nextInt(OCCASION_DATE_FUDGE_RANDOM_UPPER_BOUND);
-        occasionPayload = calculateOccasionDate(occasionPayload, fudge);
-
-        Response response = makeConnection("POST", occasionServiceURL, occasionPayload, jwt);
-
-        // Check rc
-        int rc = response.getStatus();
-        System.out.println("RC: " + rc);
-
-        if (rc != 200) {
-          System.err.println("Add occasion failed");
-          System.exit(1);
-        }
-
-      } catch (IOException | GeneralSecurityException e) {
-        System.err.println("Could not connect to the occasion service");
-      }
-    }
-  }
-
   /** Make an HTTP connection to the specified URL and pass in the specified payload. */
   private static Response makeConnection(
       String method, String urlString, String payload, String jwt)
@@ -284,30 +220,5 @@ public class DemoData {
     try (JsonReader jReader = Json.createReader(new StringReader(json))) {
       return jReader.readObject();
     }
-  }
-
-  /**
-   * Calculates a date (current date + fudge) and replaces the JSON entry of 'year-month-day' with
-   * the calculated date. If the JSON input does not contain the 'year-month-day' entry, the
-   * unmodified input JSON is returned.
-   *
-   * @param jsonString The JSON string to operate on.
-   * @param fudge A random number between 90 and 200.
-   * @return The updated JSON string input or the unmodified JSON input if it does not contain the
-   *     expected 'year-month-day'
-   */
-  public static String calculateOccasionDate(String jsonString, int fudge) {
-    if (!jsonString.contains(KEY_OCCASION_DATE)) {
-      return jsonString;
-    }
-
-    String occasion = jsonString;
-    Calendar currentCalendar = new GregorianCalendar();
-    currentCalendar.add(Calendar.DAY_OF_YEAR, fudge);
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String formattedDate = dateFormat.format(currentCalendar.getTime());
-    occasion = occasion.replace(KEY_OCCASION_DATE, formattedDate);
-
-    return occasion;
   }
 }

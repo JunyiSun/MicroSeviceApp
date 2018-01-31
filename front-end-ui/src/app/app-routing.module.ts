@@ -17,8 +17,6 @@ import { GroupCreateComponent} from './group/group-create.component';
 import { GroupsComponent} from './group/groups.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { OccasionCreationComponent } from './occasion/occasion-create.component';
-import { OccasionEditComponent } from './occasion/occasion-edit.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileCreateComponent } from './signup/profile-create.component';
 import { ProfileEditComponent } from './signup/profile-edit.component';
@@ -35,8 +33,6 @@ const routes: Routes = [
     { path: 'logout', component: LogoutComponent },
     { path: 'login/twitter', component: TwitterLoginComponent },
     { path: 'login/twitter/verify', component: TwitterVerifyComponent },
-    { path: 'occasions', component: OccasionCreationComponent },
-    { path: 'occasions/:id/edit', component: OccasionEditComponent },
     { path: 'signup', component: ProfileCreateComponent },
     { path: 'profiles/:id/edit', component: ProfileEditComponent }
 ];

@@ -24,9 +24,6 @@ import { GroupsComponent } from './group/groups.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { OccasionCreationComponent } from './occasion/occasion-create.component';
-import { OccasionEditComponent } from './occasion/occasion-edit.component';
-import { OccasionService } from './occasion/services/occasion.service';
 import { ProfileEditComponent } from './signup/profile-edit.component';
 import { ProfileCreateComponent } from './signup/profile-create.component';
 import { TwitterLoginComponent } from './login/twitter.login.component';
@@ -44,8 +41,6 @@ import { routing } from './app-routing.module';
         HeaderComponent,
         LoginComponent,
         LogoutComponent,
-        OccasionCreationComponent,
-        OccasionEditComponent,
         ProfileCreateComponent,
         ProfileEditComponent,
         TwitterLoginComponent,
@@ -64,7 +59,6 @@ import { routing } from './app-routing.module';
     ],
     providers: [
         GroupService,
-        OccasionService,
         UserService],
     bootstrap: [AppComponent]
 })

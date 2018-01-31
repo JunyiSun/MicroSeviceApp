@@ -3,30 +3,30 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
 <div class="body-background">
   <div [hidden]="eventMessageError === null" class="eventBoxError">
     <div class="fontDark-16Px" style="margin-top:14px; margin-left:20px;">
-      <button class="closeEventBoxButton floatRight" (click)="onCloseEventErrorBox()">&#10006;</button> 
+      <button class="closeEventBoxButton floatRight" (click)="onCloseEventErrorBox()">&#10006;</button>
       <img src="assets/images/icon_error.svg" height="16" width="16" style="margin-right:12px;">
       {{eventMessageError}}
     </div>
   </div>
   <div [hidden]="eventMessageSuccess === null" class="eventBoxSuccess">
     <div class="fontDark-16Px" style="margin-top:14px; margin-left:20px;">
-      <button class="closeEventBoxButton floatRight" (click)="onCloseEventSuccessBox()">&#10006;</button> 
+      <button class="closeEventBoxButton floatRight" (click)="onCloseEventSuccessBox()">&#10006;</button>
       {{eventMessageSuccess}}
     </div>
   </div>
   <div>
-    <button class="transparentBackground fontYellow-14Px" style="margin-top:16px; margin-left:39px;" 
+    <button class="transparentBackground fontYellow-14Px" style="margin-top:16px; margin-left:39px;"
     (click)=onBackToGroups()>
       <img src="assets/images/arrow-left.svg" height="14" width="16" style="margin-right:3px;">
       Back to Your Groups</button>
-  </div> 
+  </div>
   <div class="body-margin">
     <br> <br>
     <div>
@@ -64,39 +64,10 @@
       </table>
     </div>
     <div class="div-right-64">
-      <label class="fontXlightGray-20Px">Occasions</label>
-      <button class="buttonBackgroundTransparent fontYellow-16Px floatRight" (click)="onAddOccasion()">
-        <img src="assets/images/icon_add.svg" height="17" width="17" style="margin-right: 3px">Add
-        Occasion
-      </button>
-      <br> <br>
+      <label class="fontXlightGray-20Px">Blank</label>
+
       <hr class="hr-white">
-      <table class="tableWithNoRowSpacing">
-        <tr class="fontDarkPink-16Px noBorderHeader">
-          <th>Occasion</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th></th>
-        </tr>
-        <tr class="table-row-body-cell-white-no-shadow fontDark-14Px nthRowGray"
-          *ngFor="let occasion of occasions">
-          <td>{{occasion.name}}</td>
-          <td>{{onGetLoggedInUserContributionAmount(occasion) | currency:"USD":true}}</td>
-          <td>{{occasion.date}}</td>
-          <td>
-              <div>
-                  <button md-icon-button [mdMenuTriggerFor]="menu">
-                      <img src="assets/images/icon-overflow-menu.svg">
-                  </button>
-                  <md-menu #menu="mdMenu">
-                      <button (click)="onDeleteOccasion(occasion)" md-menu-item><span>Delete occasion</span></button>
-                      <button (click)="onEditOccasion(occasion)" md-menu-item><span>Edit occasion</span></button>
-                      <button (click)="onRunOccasion(occasion)" md-menu-item><span>Run occasion</span></button>
-                  </md-menu>
-              </div>
-          </td>
-        </tr>
-      </table>
+
     </div>
     <br> <br> <br>
   </div>

@@ -14,8 +14,6 @@ import { Group } from './group';
 import { GroupService } from './services/group.service';
 import { HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import { MdIconRegistry } from '@angular/material';
-import { Occasion } from '../occasion/Occasion';
-import { OccasionService } from '../occasion/services/occasion.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from '../user/user';
 import { UserService } from '../user/services/user.service';
@@ -45,7 +43,6 @@ export class GroupComponent implements OnInit {
     group: Group = new Group('', '', []);
     user: User = new User('', '', '', '', '', '', '', '');
     addedMembers: User[] = [];
-    occasions: Occasion[];
     startGroupNameEdit = false;
     editableGroupName: string;
     eventMessageError: string = null;
@@ -54,7 +51,6 @@ export class GroupComponent implements OnInit {
     constructor(private route: ActivatedRoute,
         private groupService: GroupService,
         private iconRegistry: MdIconRegistry,
-        private occasionService: OccasionService,
         private userService: UserService,
         private sanitizer: DomSanitizer,
         private router: Router) {
@@ -87,8 +83,6 @@ export class GroupComponent implements OnInit {
             // Get the current group's data.
             this.getGroupData();
 
-            // Get the current group's occasions
-            this.getOccasions();
 
             // Get the current user's data.
             this.userService.getUser(this.userId).subscribe(resp => {
@@ -104,10 +98,6 @@ export class GroupComponent implements OnInit {
 
     onAddMember(search: string) {
         this.router.navigate([ 'groups/member/add', {groupId: this.groupId, userId: this.userId}]);
-    }
-
-    onAddOccasion() {
-        this.router.navigate([ '/occasions', {userId: this.userId, groupId: this.groupId}]);
     }
 
     onDelete(): void {
@@ -187,45 +177,6 @@ export class GroupComponent implements OnInit {
         }
     }
 
-    onDeleteOccasion(occasion: Occasion) {
-        this.occasionService.deleteOccasion(occasion._id).subscribe(resp => { this.getOccasions(); });
-    }
-
-    onEditOccasion(occasion: Occasion) {
-        this.router.navigate([ '/occasions', occasion._id, 'edit', { userId: this.userId, groupId: this.groupId } ]);
-    }
-
-    onRunOccasion(occasion: Occasion) {
-        this.occasionService.runOccasion(occasion).subscribe((res: HttpResponse<any>) => {
-            const runSuccessMessage: string = res.body['runSuccess'];
-            const runErrorMessage: string = res.body['runError'];
-            // Check for success or error
-            if (runSuccessMessage === null || runSuccessMessage === undefined  || runSuccessMessage === '' ) {
-                if (runErrorMessage === null || runErrorMessage === undefined  || runErrorMessage === '' ) {
-                    this.eventMessageSuccess = null;
-                    this.eventMessageError = 'Notification request did not return a valid response.';
-                } else {
-                    this.eventMessageSuccess = null;
-                    this.eventMessageError = runErrorMessage;
-                }
-            } else {
-                this.eventMessageSuccess = runSuccessMessage;
-                this.eventMessageError = null;
-            }
-
-            // Update the occasion list after the occasion runs.  It runs
-            // synchronously so the occasion we just ran should be
-            // removed from the list.
-            this.getOccasions();
-        }, (err: HttpErrorResponse) => {
-            console.log('Run now encountered an Http error');
-            this.eventMessageError = 'Notification request Http error.';
-            this.eventMessageSuccess = null;
-
-            // Update the occasion list in case something changed.
-            this.getOccasions();
-        });
-    }
 
     onCloseEventSuccessBox() {
          this.eventMessageSuccess = null;
@@ -290,13 +241,6 @@ export class GroupComponent implements OnInit {
         this.eventMessageError = null;
     }
 
-    onGetLoggedInUserContributionAmount(occasion: Occasion): number {
-        for (const contribution of occasion.contributions) {
-            if (contribution['userId'] === this.userId) {
-                return contribution['amount'];
-            }
-        }
-    }
 
     onBackToGroups() {
         this.routeToGroupsView();
@@ -306,28 +250,25 @@ export class GroupComponent implements OnInit {
         let errorGettingUserDetected = false;
         for (const memberId of this.group.members) {
             if (this.userId !== memberId) {
-               this.userService.getUser(memberId).subscribe(resp => { 
-                       this.addedMembers.push(resp); 
+               this.userService.getUser(memberId).subscribe(resp => {
+                       this.addedMembers.push(resp);
                    }, err => {
                        errorGettingUserDetected = true;
                    });
             }
         }
-        
-        // If there were some errors getting user information, report the 
+
+        // If there were some errors getting user information, report the
         // error and stay on the same page.
         if (errorGettingUserDetected) {
             this.eventMessageError = this.MSG_ONE_OR_MORE_USERS_NOT_RETRIEVED;
         }
     }
 
-    getOccasions() {
-        this.occasionService.getOccasionsForGroup(this.groupId).subscribe(resp => { this.occasions = resp; });
-    }
 
     getGroupData() {
         this.groupService.getGroup(this.groupId).subscribe(resp => {
-            this.group = resp; 
+            this.group = resp;
             this.getMemberData();
             this.editableGroupName = this.group.name;
 

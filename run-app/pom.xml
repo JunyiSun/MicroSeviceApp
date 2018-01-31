@@ -173,22 +173,7 @@
                                 </configuration>
                             </execution>
 
-                            <!-- Occasion Database -->
-                            <execution>
-                                <id>start-occasion-db</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-occasion</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>exec:exec@start-database</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
+
                         </executions>
                     </plugin>
                 </plugins>
@@ -274,22 +259,7 @@
                                 </configuration>
                             </execution>
 
-                            <!-- Occasion Microservice -->
-                            <execution>
-                                <id>start-occasion-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-occasion</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:start-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
+
                         </executions>
                     </plugin>
                 </plugins>
@@ -306,22 +276,7 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
-                            <!-- Occasion Microservice -->
-                            <execution>
-                                <id>stop-occasion-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-occasion</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:stop-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
+                          
 
                             <!-- UI Microservice -->
                             <execution>
@@ -439,22 +394,7 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-                            <!-- Occasion Database -->
-                            <execution>
-                                <id>stop-occasion-db</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-occasion</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>exec:exec@stop-database</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
+
                         </executions>
                     </plugin>
                 </plugins>
@@ -488,8 +428,8 @@
                                         <argument>${user.https.port}</argument>
                                         <argument>${group.hostname}</argument>
                                         <argument>${group.https.port}</argument>
-                                        <argument>${occasion.hostname}</argument>
-                                        <argument>${occasion.https.port}</argument>
+
+
                                         <argument>${auth.hostname}</argument>
                                         <argument>${auth.https.port}</argument>
                                     </arguments>

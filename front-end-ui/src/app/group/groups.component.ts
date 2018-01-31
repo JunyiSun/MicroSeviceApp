@@ -16,20 +16,18 @@ import { Groups } from './groups';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from '../user/user';
 import { UserService } from '../user/services/user.service';
-import { Occasion } from '../occasion/Occasion';
-import { OccasionService } from '../occasion/services/occasion.service';
 import { HttpErrorResponse} from '@angular/common/http';
 
 @Component({
     selector: 'app-groups',
     templateUrl: './groups.component.html',
-    providers: [GroupService, UserService, OccasionService]
+    providers: [GroupService, UserService]
 })
 export class GroupsComponent implements OnInit {
     MSG_USER_NOT_RETRIEVED = 'User information could not be retrieved.';
     MSG_USER_ID_INVALID = 'Your session has become invalid. Please login again.';
     MSG_RC_ERR_CLIENT_NETWORK = 'Network connectivity or client error';
-    
+
     GROUP_ERROR_ID_NOT_VALID = 'The group ID is not valid';
     GROUP_ERROR_ID_NOT_FOUND = 'The group was not found';
     GROUP_ERROR_ID_NOT_VALID_MSG = 'The group service returned an error indicating that the group ID was not valid.';
@@ -45,7 +43,6 @@ export class GroupsComponent implements OnInit {
     constructor(private route: ActivatedRoute,
         private groupService: GroupService,
         private userService: UserService,
-        private occasionService: OccasionService,
         private router: Router) {}
 
     ngOnInit() {
@@ -57,9 +54,9 @@ export class GroupsComponent implements OnInit {
                 this.eventMessageError = this.MSG_USER_ID_INVALID;
                 return;
             }
-            
+
             // Get the current user's data.
-            this.userService.getUser(this.userId).subscribe(resp => { 
+            this.userService.getUser(this.userId).subscribe(resp => {
                 this.user = resp;
                 sessionStorage.userName = this.user.userName;
             }, err => {
@@ -127,31 +124,11 @@ export class GroupsComponent implements OnInit {
         this.eventMessageError = null;
     }
 
-    getLoggedInUserContributions() {
-        this.loggedInUserTotalContribution = 0;
-        for (const group of this.groups) {
-            let totalGroupContribution = 0;
-            const jGroup = this.getJObj(group);
-            this.occasionService.getOccasionsForGroup(jGroup.id).subscribe(occasions => {
-            for (let i = 0; i < occasions.length; i++) {
-                for (const contribution of occasions[i].contributions) {
-                    if (contribution['userId'] === this.userId) {
-                        totalGroupContribution += contribution['amount'];
-                        break;
-                    }
-                }
-            }
-
-            this.loggedInUserGroupContributionList.push(new GroupContribution(jGroup.id, totalGroupContribution));
-            this.loggedInUserTotalContribution += totalGroupContribution;
-            });
-        }
-    }
 
     getGroupsForUser() {
         this.groupService.getGroups(this.userId).subscribe(resp => {
             this.groups = resp.groups;
-            this.getLoggedInUserContributions();
+            
         }, err => {
              this.eventMessageError = 'An error occurred obtaining the groups from the server.';
         });
