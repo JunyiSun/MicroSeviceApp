@@ -16,15 +16,13 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileCreateComponent } from './signup/profile-create.component';
-import { ProfileEditComponent } from './signup/profile-edit.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'groups', component: GroupsComponent },
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
-    { path: 'signup', component: ProfileCreateComponent },
-    { path: 'profiles/:id/edit', component: ProfileEditComponent }
+    { path: 'signup', component: ProfileCreateComponent }
 ];
 
 export const routing = RouterModule.forRoot(routes);

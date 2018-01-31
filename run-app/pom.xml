@@ -128,41 +128,7 @@
                 <mvn.extension></mvn.extension>
             </properties>
         </profile>
-        <profile>
-            <id>start-databases</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <!-- User Database -->
-                            <execution>
-                                <id>start-user-db</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-user</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>exec:exec@start-database</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
 
-
-
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>start-servers</id>
             <activation>
@@ -335,40 +301,7 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>stop-databases</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <!-- User Database -->
-                            <execution>
-                                <id>stop-user-db</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-user</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>exec:exec@stop-database</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
 
-
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>demo</id>
             <activation>

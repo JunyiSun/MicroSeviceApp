@@ -1,14 +1,9 @@
 package net.wasdev.sample.microprofile.user;
 
 import java.util.ArrayList;
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
-
-
-import net.wasdev.sample.microprofile.user.User;
 
 public class UserList {
 
@@ -16,13 +11,23 @@ public class UserList {
 
   public void addUser(User newUser) {
     users.add(newUser);
-    //System.out.println("add user" + user.toString());
+    // System.out.println("add user" + user.toString());
   }
 
-  public User getUser(String name) {
+  public User getUserByName(String name) {
     for (User user : users) {
-      if (user.getName().equals(name)) {
-        //System.out.println("get user" + user.toString());
+      if (user.getUserName().equals(name)) {
+        // System.out.println("get user" + user.toString());
+        return user;
+      }
+    }
+    return null;
+  }
+
+  public User getUserById(String id) {
+    for (User user : users) {
+      if (user.getId().equals(id)) {
+        // System.out.println("get user" + user.toString());
         return user;
       }
     }
@@ -33,4 +38,11 @@ public class UserList {
     return users;
   }
 
+  public JsonArray getUsersListJson() {
+    JsonArrayBuilder userArray = Json.createArrayBuilder();
+    for (User user : users) {
+      userArray.add(user.getPublicJsonObject());
+    }
+    return userArray.build();
+  }
 }

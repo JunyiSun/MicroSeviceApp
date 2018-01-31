@@ -3,7 +3,7 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
@@ -15,7 +15,7 @@
         <feature>ssl-1.0</feature>
     </featureManager>
 
-    <!-- This is the keystore that will be used by SSL and by JWT. 
+    <!-- This is the keystore that will be used by SSL and by JWT.
     	 The keystore is built using the maven keytool plugin -->
     <keyStore id="defaultKeyStore" location="keystore.jceks"
               type="JCEKS" password="secret" />
@@ -24,17 +24,12 @@
     <httpEndpoint id="defaultHttpEndpoint" host="*"
                   httpPort="${http.port}" httpsPort="${https.port}"/>
 
-	<!-- The mongo database driver. -->
-    <library id="mongoLib">
-        <file name="${shared.resource.dir}/mongo-java-driver.jar" />
-    </library>
 
 	<!-- The application containing the user and login endpoints.
-	     This needs access to the mongo database driver. -->
+	     -->
     <webApplication location="${app.name}" contextRoot="/">
-        <classloader commonLibraryRef="mongoLib" />
     </webApplication>
-    
+
     <!-- This configuration allows cross-origin HTTP requests, such
          as those from the front-end component (different port). -->
      <cors domain="/users"

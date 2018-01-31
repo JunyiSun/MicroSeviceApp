@@ -13,13 +13,9 @@ package net.wasdev.sample.microprofile.user;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import org.bson.types.ObjectId;
 
-/** An Object representation of the user data stored in MongoDB. */
 public class User {
 
-
-  /* These are the keys used to store the user data in MongoDB */
   public static final String JSON_KEY_USER_ID = "id";
   public static final String JSON_KEY_USER_FIRST_NAME = "firstName";
   public static final String JSON_KEY_USER_LAST_NAME = "lastName";
@@ -48,17 +44,6 @@ public class User {
 
   /** The generated salt that is contained in the hashed password. */
   private String passwordSalt;
-
-  /** Constructor for reading a user from the database */
-  public User(DBObject user) {
-    this.id = ((ObjectId) user.get(DB_ID)).toString();
-    this.firstName = (String) user.get(JSON_KEY_USER_FIRST_NAME);
-    this.lastName = (String) user.get(JSON_KEY_USER_LAST_NAME);
-    this.userName = (String) user.get(JSON_KEY_USER_NAME);
-    this.wishListLink = (String) user.get(JSON_KEY_USER_WISH_LIST_LINK);
-    this.passwordHash = (String) user.get(JSON_KEY_USER_PASSWORD_HASH);
-    this.passwordSalt = (String) user.get(JSON_KEY_USER_PASSWORD_SALT);
-  }
 
   /** Constructor for reading the user from the JSON that was a part of a JAX-RS request. */
   public User(JsonObject user) {
@@ -104,6 +89,14 @@ public class User {
     return passwordSalt;
   }
 
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
   /**
    * Return a JSON object suitable to be returned to the caller with no confidential information
    * (like password or salt).
@@ -118,5 +111,4 @@ public class User {
 
     return user.build();
   }
-
 }

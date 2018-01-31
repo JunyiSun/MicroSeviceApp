@@ -53,7 +53,4 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['logout']);
     }
     
-    onEditProfile(): void {
-        this.router.navigate(['profiles',sessionStorage.userId, 'edit']);
-    }
 }

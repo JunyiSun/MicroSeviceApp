@@ -34,10 +34,7 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
@@ -119,20 +116,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
-                  <!-- Copy the mongo-java-driver jar to the shared
-                       resource directory. -->
-                    <execution>
-                        <id>copy-mongodb-dependency-to-liberty</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeArtifactIds>mongo-java-driver</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
-                            <stripVersion>true</stripVersion>
-                        </configuration>
-                    </execution>
+
                     <!-- Copy the keystore that Liberty will use -->
                     <execution>
                         <id>copy-keystore-to-liberty</id>
@@ -198,8 +182,6 @@
                         <app.name>${warfile.name}.war</app.name>
                         <http.port>${user.http.port}</http.port>
                         <https.port>${user.https.port}</https.port>
-                        <mongo.hostname>${user.mongo.hostname}</mongo.hostname>
-                        <mongo.port>${user.mongo.port}</mongo.port>
 
                         <acme.gifts.frontend.hostname>${frontend.hostname}</acme.gifts.frontend.hostname>
                         <acme.gifts.frontend.port>${frontend.https.port}</acme.gifts.frontend.port>
@@ -227,8 +209,7 @@
 		                        <liberty.test.hostname>${user.hostname}</liberty.test.hostname>
                                 <liberty.test.port>${user.http.port}</liberty.test.port>
                                 <liberty.test.ssl.port>${user.https.port}</liberty.test.ssl.port>
-								<mongo.test.hostname>${user.mongo.hostname}</mongo.test.hostname>
-                                <mongo.test.port>${user.mongo.port}</mongo.test.port>
+
                                 <liberty.user.service.hostname>${user.hostname}</liberty.user.service.hostname>
                                 <liberty.user.service.ssl.port>${user.https.port}</liberty.user.service.ssl.port>
                             </systemPropertyVariables>
@@ -265,42 +246,7 @@
                 </executions>
             </plugin>
 
-            <!-- Plugin to start and stop the databases -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>start-database</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>../run-app/startMongo${script.extension}</executable>
-                            <arguments>
-                                <argument>userDB</argument>
-                                <argument>${user.mongo.port}</argument>
-                                <argument>${mongo.path}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>stop-database</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>../run-app/stopMongo${script.extension}</executable>
-                            <arguments>
-                                <argument>userDB</argument>
-                                <argument>${mongo.path}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
     </build>
 

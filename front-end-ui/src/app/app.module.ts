@@ -21,7 +21,6 @@ import { GroupsComponent } from './group/groups.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { ProfileEditComponent } from './signup/profile-edit.component';
 import { ProfileCreateComponent } from './signup/profile-create.component';
 import { UserService } from './user/services/user.service';
 import { routing } from './app-routing.module';
@@ -33,8 +32,7 @@ import { routing } from './app-routing.module';
         HeaderComponent,
         LoginComponent,
         LogoutComponent,
-        ProfileCreateComponent,
-        ProfileEditComponent
+        ProfileCreateComponent
     ],
     imports: [
         BrowserModule,

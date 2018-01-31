@@ -54,21 +54,4 @@ export class UserService {
       .map(data => data);
   }
 
-  updateUser(user: User): Observable<HttpResponse<any>> {
-      let headers = new HttpHeaders();
-      headers = headers.set('Content-Type', 'application/json');
-      headers = headers.set('Authorization', sessionStorage.jwt);
-      const payload = JSON.stringify(user);
-
-      return this.http.put<HttpResponse<any>>(this.userUrl + user.id, payload, { headers: headers, observe: 'response' })
-      .map(data => data);
-  }
-  
-  deleteUser(userId: string): Observable<HttpResponse<any>> {
-      let headers = new HttpHeaders();
-      headers = headers.set('Authorization', sessionStorage.jwt);
-
-      return this.http.delete<HttpResponse<any>>(this.userUrl + userId, { headers: headers })
-      .map(data => data);
-  }
 }

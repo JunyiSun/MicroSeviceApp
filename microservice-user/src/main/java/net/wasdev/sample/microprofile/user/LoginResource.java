@@ -12,10 +12,6 @@ package net.wasdev.sample.microprofile.user;
 
 import com.ibm.websphere.security.jwt.Claims;
 import com.ibm.websphere.security.jwt.JwtBuilder;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 import java.util.Set;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -31,7 +27,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
-import org.bson.types.ObjectId;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 /**
@@ -42,9 +37,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @RequestScoped
 public class LoginResource {
 
-  /** Access to user information stored in MongoDB. */
-  @Inject private MongoAccess mongo;
-
+  private UserList userList = UserResource.userList;
   /**
    * The JWT of the current caller. Since this is a request scoped resource, the JWT will be
    * injected for each JAX-RS request. The injection is performed by the mpJwt-1.0 feature.
@@ -93,29 +86,27 @@ public class LoginResource {
     String userName = payload.getString(User.JSON_KEY_USER_NAME);
     String password = payload.getString("password");
 
-    // Lookup the userName in the database.  If they do not exist, return an error.
-    DB database = mongo.getMongoDB();
-    DBCollection dbCollection = database.getCollection(User.DB_COLLECTION_NAME);
-    DBObject dbUser = dbCollection.findOne(new BasicDBObject(User.JSON_KEY_USER_NAME, userName));
-    if (dbUser == null) {
+    User user = userList.getUserByName(userName);
+
+    if (user == null) {
       responseBody = builder.add(LOGIN_RC_ERR_KEY, LOGIN_RC_ERR_USR_NOT_FOUND).build();
       return Response.status(Status.BAD_REQUEST).entity(responseBody).build();
     }
 
     // Find out if this user was created in the usual way
-    String dbId = ((ObjectId) dbUser.get(User.DB_ID)).toString();
+    String userId = user.getId();
     boolean buildJwt = false;
 
     // Check the password by pre-pending the cleartext password with the salt
     // for this user, and then hashing it.  Compare the hashed password with
     // the hashed password stored in the database.
-    String passwordSaltString = ((String) dbUser.get(User.JSON_KEY_USER_PASSWORD_SALT));
-    String correctHashedPassword = ((String) dbUser.get(User.JSON_KEY_USER_PASSWORD_HASH));
+    String passwordSaltString = user.getPasswordSalt();
+    String correctHashedPassword = user.getPasswordHash();
 
     try {
       PasswordUtility pwUtil = new PasswordUtility(password, passwordSaltString);
       if (correctHashedPassword.equals(pwUtil.getHashedPassword())) {
-        responseBody = builder.add(LOGIN_RESPONSE_ID_KEY, dbId).build();
+        responseBody = builder.add(LOGIN_RESPONSE_ID_KEY, userId).build();
         buildJwt = true;
       } else {
         responseBody = builder.add(LOGIN_RC_ERR_KEY, LOGIN_RC_ERR_INCORRECT_PSWD).build();

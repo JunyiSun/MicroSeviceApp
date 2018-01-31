@@ -35,8 +35,6 @@
         <version.exec.plugin>1.5.0</version.exec.plugin>
         <version.jar.plugin>3.0.2</version.jar.plugin>
 
-        <!-- Database. -->
-        <version.mongodb>2.14.3</version.mongodb>
 
         <!-- Liberty Server -->
         <version.liberty>17.0.0.3-RC</version.liberty>
@@ -63,8 +61,6 @@
         <user.hostname>localhost</user.hostname>
         <user.http.port>5050</user.http.port>
         <user.https.port>5051</user.https.port>
-        <user.mongo.hostname>localhost</user.mongo.hostname>
-        <user.mongo.port>5052</user.mongo.port>
 
         <group.hostname>localhost</group.hostname>
         <group.http.port>5053</group.http.port>
@@ -78,8 +74,6 @@
         <auth.https.port>5066</auth.https.port>
         <auth.hostname>localhost</auth.hostname>
 
-        <!-- Optional path to Mongo install bin directory (for use when auto starting and stopping the databases) -->
-        <mongo.path></mongo.path>
 
         <!-- JSON Web Token used for microservice authorization -->
         <jwt.shared.key>secret</jwt.shared.key>
@@ -135,13 +129,6 @@
                 <version>${version.com.ibm.websphere.appserver.api.jwt}</version>
             </dependency>
 
-            <!-- Database. -->
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongo-java-driver</artifactId>
-                <version>${version.mongodb}</version>
-                <scope>provided</scope>
-            </dependency>
 
             <!-- Test -->
             <dependency>
