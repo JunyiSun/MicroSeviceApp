@@ -174,23 +174,6 @@
                                 </configuration>
                             </execution>
 
-                            <!-- Group Microservice -->
-                            <execution>
-                                <id>start-group-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-group</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:start-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-
 
                             <!-- UI Microservice -->
                             <execution>
@@ -246,22 +229,6 @@
                             </execution>
 
 
-                            <!-- Group Microservice -->
-                            <execution>
-                                <id>stop-group-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-group</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:stop-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
 
                             <!-- User Microservice -->
                             <execution>
@@ -328,9 +295,6 @@
                                         <argument>./target/demoData.jar</argument>
                                         <argument>${user.hostname}</argument>
                                         <argument>${user.https.port}</argument>
-                                        <argument>${group.hostname}</argument>
-                                        <argument>${group.https.port}</argument>
-
 
                                         <argument>${auth.hostname}</argument>
                                         <argument>${auth.https.port}</argument>

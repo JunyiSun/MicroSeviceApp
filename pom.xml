@@ -62,10 +62,6 @@
         <user.http.port>5050</user.http.port>
         <user.https.port>5051</user.https.port>
 
-        <group.hostname>localhost</group.hostname>
-        <group.http.port>5053</group.http.port>
-        <group.https.port>5054</group.https.port>
-
         <frontend.http.port>5063</frontend.http.port>
         <frontend.https.port>5064</frontend.https.port>
         <frontend.hostname>localhost</frontend.hostname>
@@ -299,7 +295,6 @@
         <module>shared-keystore</module>
         <module>microservice-auth</module>
         <module>microservice-user</module>
-        <module>microservice-group</module>
         <module>front-end-ui</module>
         <module>run-app</module>
     </modules>

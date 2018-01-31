@@ -35,30 +35,25 @@ public class DemoData {
   private static final String KEY_ID = "id";
 
   private static final String BOOT_FILE_USERS = "users.json";
-  private static final String BOOT_FILE_GROUPS = "groups.json";
 
   private static String userServiceURL;
-  private static String groupServiceURL;
 
   private static String authServiceURL;
 
   // Map temp ids in json files to the official ids returned when the objects
   // are added to their respective services
   private static HashMap<String, String> userIds = new HashMap<String, String>();
-  private static HashMap<String, String> groupIds = new HashMap<String, String>();
 
-  // JWT returned from user service to use for creating groups
+  // JWT returned from user service to use for creating teams
   private static String jwt = null;
 
   public static void main(String[] args) {
 
-    if (args.length != 6) {
+    if (args.length != 4) {
       System.err.println(
           "Usage: This jar expects eight arguments specifying host and ports for four services in the following order: \n\n"
               + "user server hostname\n"
               + "user server https port\n"
-              + "group server hostname\n"
-              + "group server https port\n"
               + "auth server hostname\n"
               + "auth server https port");
 
@@ -67,20 +62,15 @@ public class DemoData {
 
     String userHost = args[0];
     String userPort = args[1];
-    String groupHost = args[2];
-    String groupPort = args[3];
-
-    String authHost = args[4];
-    String authPort = args[5];
+    String authHost = args[2];
+    String authPort = args[3];
 
     userServiceURL = "https://" + userHost + ":" + userPort + "/users";
-    groupServiceURL = "https://" + groupHost + ":" + groupPort + "/groups";
 
     authServiceURL = "https://" + authHost + ":" + authPort + "/auth";
 
     try {
       parseUsers();
-      parseGroups();
 
     } catch (IOException e1) {
       e1.printStackTrace();
@@ -136,51 +126,6 @@ public class DemoData {
 
       } catch (IOException | GeneralSecurityException e) {
         System.err.println("Could not connect to the user service");
-      }
-    }
-  }
-
-  /** Populates the group microservice database with pre-defined groups. */
-  private static void parseGroups() throws IOException {
-    final URL groups = Thread.currentThread().getContextClassLoader().getResource(BOOT_FILE_GROUPS);
-    assert groups != null : "Failed to load '" + BOOT_FILE_GROUPS + "'";
-
-    final JsonReaderFactory factory = Json.createReaderFactory(null);
-    JsonReader reader = factory.createReader(groups.openStream());
-
-    final JsonArray jsonGroups = reader.readArray();
-
-    // Send request to user service to add new groups
-    for (JsonValue groupJsonValue : jsonGroups) {
-      try {
-        String groupPayload = groupJsonValue.toString();
-
-        // Replace userIds with official userIds
-        for (String userId : userIds.keySet()) {
-          groupPayload = groupPayload.replaceAll(userId, userIds.get(userId));
-        }
-
-        Response response = makeConnection("POST", groupServiceURL, groupPayload, jwt);
-
-        // Check rc
-        int rc = response.getStatus();
-        System.out.println("RC: " + rc);
-
-        if (rc != 200) {
-          System.err.println("Add group failed");
-          System.exit(1);
-        }
-
-        // Add official id to group map
-        JsonObject groupJsonObject = toJsonObj(groupPayload);
-        JsonObject responseJson = toJsonObj(response.readEntity(String.class));
-        String officialId = responseJson.getString(KEY_ID);
-        String tempId = groupJsonObject.getString(KEY_ID);
-
-        groupIds.put(tempId, officialId);
-
-      } catch (IOException | GeneralSecurityException e) {
-        System.err.println("Could not connect to the group service");
       }
     }
   }
