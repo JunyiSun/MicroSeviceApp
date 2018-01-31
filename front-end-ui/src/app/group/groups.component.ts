@@ -9,14 +9,11 @@
 * IBM Corporation - initial API and implementation
 *******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { Group } from './group';
-import { GroupContribution } from './group-contribution';
 import { GroupService } from './services/group.service';
-import { Groups } from './groups';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from '../user/user';
 import { UserService } from '../user/services/user.service';
-import { HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse} from '@angular/common/http';
 
 @Component({
     selector: 'app-groups',
@@ -28,17 +25,11 @@ export class GroupsComponent implements OnInit {
     MSG_USER_ID_INVALID = 'Your session has become invalid. Please login again.';
     MSG_RC_ERR_CLIENT_NETWORK = 'Network connectivity or client error';
 
-    GROUP_ERROR_ID_NOT_VALID = 'The group ID is not valid';
-    GROUP_ERROR_ID_NOT_FOUND = 'The group was not found';
-    GROUP_ERROR_ID_NOT_VALID_MSG = 'The group service returned an error indicating that the group ID was not valid.';
-    GROUP_ERROR_ID_NOT_FOUND_MSG = 'The group service returned an error indicating that the group was not found.';
 
-    groups: Group[];
     userId = '';
     user: User = new User('', '', '', '', '', '');
-    loggedInUserTotalContribution = 0;
-    loggedInUserGroupContributionList: GroupContribution[] = [];
     eventMessageError: string = null;
+    content: string = null;
 
     constructor(private route: ActivatedRoute,
         private groupService: GroupService,
@@ -65,76 +56,32 @@ export class GroupsComponent implements OnInit {
                 this.eventMessageError = this.MSG_USER_NOT_RETRIEVED;
             });
 
-            // Get the current user's groups.
-            this.getGroupsForUser();
+          this.getToken();
         });
-    }
-
-    onGetGroupName(obj): string {
-        return this.getJObj(obj).name;
-    }
-
-    onDisplayGroup(group: Group) {
-        const jGroup = this.getJObj(group);
-        this.router.navigate(['/groups/group', {groupId : jGroup.id, userId: this.userId}]);
-    }
-
-    onCreateGroup() {
-        this.router.navigate(['/groups/group/create', {userId : this.userId}]);
-    }
-
-    onDelete(group: Group) {
-        const jGroup = this.getJObj(group);
-        this.groupService.deleteGroup(jGroup.id).subscribe(resp => {
-            this.getGroupsForUser();
-        }, (err: HttpErrorResponse) => {
-            if (err.error instanceof Error) {
-                // Client error or network error.
-                this.eventMessageError = this.MSG_RC_ERR_CLIENT_NETWORK;
-                console.log('A client or network error occurred:', err.message);
-            } else {
-                // Backend error
-                let error: string;
-                if (err.error !== null) {
-                    error = err.error['error'];
-                }
-                if (error === this.GROUP_ERROR_ID_NOT_VALID) {
-                    this.eventMessageError = this.GROUP_ERROR_ID_NOT_VALID_MSG;
-                } else if (error === this.GROUP_ERROR_ID_NOT_FOUND) {
-                    this.eventMessageError = this.GROUP_ERROR_ID_NOT_FOUND_MSG;
-                } else {
-                    this.eventMessageError = `Group server error (HTTP ${err.status}) has occurred.`;
-                }
-                console.log(`Delete group. The server response status is: ${err.status}. Error message: ` + err.message);
-            }
-        });
-    }
-
-    onGetLoggedInUserTotalGroupContribution(group: Group): number {
-        const jGroup = this.getJObj(group);
-        const groupContribution = this.loggedInUserGroupContributionList.find(gc => gc.groupId === jGroup.id);
-        if (groupContribution === undefined) {
-            return 0;
-        } else {
-            return groupContribution.contribution;
-        }
     }
 
     onCloseEventErrorBox() {
         this.eventMessageError = null;
     }
 
+    onBla(): string {
+      // this.groupService.getGroups().subscribe(response => {
+      //     // return response;
+      //     return "placeholder here";
+      // }, err => {
+      //      this.eventMessageError = 'An error occurred obtaining the groups from the server.';
+      // });
+      // return this.eventMessageError; //this.content
 
-    getGroupsForUser() {
-        this.groupService.getGroups(this.userId).subscribe(resp => {
-            this.groups = resp.groups;
+      return "placeholderhere";
+    }
 
-        }, err => {
-             this.eventMessageError = 'An error occurred obtaining the groups from the server.';
+    getToken() {
+      this.groupService.getPropToken().subscribe((res2: HttpResponse<any>) => {
+          this.content = res2.headers.get('proptoken');
+        }, (err: HttpErrorResponse) => {
+            this.eventMessageError = 'An error occurred obtaining the groups from the server.';
         });
     }
 
-    getJObj(obj): any {
-        return JSON.parse(obj);
-    }
 }

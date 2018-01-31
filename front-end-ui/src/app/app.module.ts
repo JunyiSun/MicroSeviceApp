@@ -16,9 +16,6 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { MdButtonModule, MdMenuModule, MdIconModule } from '@angular/material';
 import { AppComponent } from './app.component';
-import { GroupAddMemberComponent } from './group/group-add-member.component';
-import { GroupComponent } from './group/group.component';
-import { GroupCreateComponent } from './group/group-create.component';
 import { GroupService } from './group/services/group.service';
 import { GroupsComponent } from './group/groups.component';
 import { HeaderComponent } from './header/header.component';
@@ -32,9 +29,6 @@ import { routing } from './app-routing.module';
 @NgModule({
     declarations: [
         AppComponent,
-        GroupAddMemberComponent,
-        GroupComponent,
-        GroupCreateComponent,
         GroupsComponent,
         HeaderComponent,
         LoginComponent,

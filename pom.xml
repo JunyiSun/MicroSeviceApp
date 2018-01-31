@@ -69,8 +69,6 @@
         <group.hostname>localhost</group.hostname>
         <group.http.port>5053</group.http.port>
         <group.https.port>5054</group.https.port>
-        <group.mongo.hostname>localhost</group.mongo.hostname>
-        <group.mongo.port>5055</group.mongo.port>
 
         <frontend.http.port>5063</frontend.http.port>
         <frontend.https.port>5064</frontend.https.port>

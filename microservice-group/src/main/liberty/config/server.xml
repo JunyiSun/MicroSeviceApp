@@ -3,7 +3,7 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
@@ -22,18 +22,14 @@
     <httpEndpoint httpPort="${http.port}" httpsPort="${https.port}"
                   id="defaultHttpEndpoint"/>
 
-    <library id="mongodriver">
-      <file name="${shared.resource.dir}/mongo-java-driver.jar"/>
-    </library>
-    
+
     <webApplication location="${app.name}" contextRoot="/">
-      <classloader commonLibraryRef="mongodriver"/>
 	  </webApplication>
 
-    <cors domain="/groups" 
-          allowedOrigins="*" 
+    <cors domain="/groups"
+          allowedOrigins="*"
           allowedMethods="GET, DELETE, POST, PUT"
-          allowedHeaders="Accept, Content-Type, Authorization" 
+          allowedHeaders="Accept, Content-Type, Authorization"
           maxAge="3600"/>
 
     <!-- To facilitate testing the group service in absence of the user service, this

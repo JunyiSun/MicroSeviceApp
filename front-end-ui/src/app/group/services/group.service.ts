@@ -9,8 +9,6 @@
 * IBM Corporation - initial API and implementation
 *******************************************************************************/
 import 'rxjs/add/operator/map';
-import { Group } from '../group';
-import { Groups } from '../groups';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
@@ -20,7 +18,6 @@ import { Observable } from 'rxjs/Rx';
  */
 @Injectable()
 export class GroupService {
-    private groups: Group[];
 
     // Maven fills in these variables from the pom.xml
     private groupsUrl = 'https://${group.hostname}:${group.https.port}/groups/';
@@ -31,45 +28,15 @@ export class GroupService {
       }
   }
 
-  getGroups(userId: string): Observable<Groups> {
+  getGroups(): Observable<string> {
       let headers = new HttpHeaders();
       headers = headers.set('Authorization', sessionStorage.jwt);
 
-      return this.http.get<Groups>(this.groupsUrl + '?userId=' + userId, { headers: headers })
-      .map(data => data)
-  }
-
-  getGroup(groupId: string): Observable<Group> {
-      let headers = new HttpHeaders();
-      headers = headers.set('Authorization', sessionStorage.jwt);
-
-      return this.http.get<Group>(this.groupsUrl + groupId, { headers: headers })
-      .map(data => data)
-  }
-
-  createGroup(payload: string): Observable<HttpResponse<any>> {
-      let headers = new HttpHeaders();
-      headers = headers.set('Content-Type', 'application/json');
-      headers = headers.set('Authorization', sessionStorage.jwt);
-      
-      return this.http.post<HttpResponse<any>>(this.groupsUrl, payload, { headers: headers })
+      return this.http.get(this.groupsUrl + 'prop', { headers: headers })
       .map(data => data);
   }
 
-  updateGroup(groupId: string, payload: string): Observable<HttpResponse<any>> {
-      let headers = new HttpHeaders();
-      headers = headers.set('Content-Type', 'application/json');
-      headers = headers.set('Authorization', sessionStorage.jwt);
-
-      return this.http.put<HttpResponse<any>>(this.groupsUrl + groupId, payload, { headers: headers })
-      .map(data => data);
-  }
-
-  deleteGroup(groupId: string): Observable<HttpResponse<any>> {
-      let headers = new HttpHeaders();
-      headers = headers.set('Authorization', sessionStorage.jwt);
-
-      return this.http.delete<HttpResponse<any>>(this.groupsUrl + groupId, { headers: headers })
-      .map(data => data);
+  getPropToken(): Observable<HttpResponse<any>> {
+      return this.http.get<HttpResponse<any>>(this.groupsUrl + 'prop', { observe: 'response'}).map(data => data);
   }
 }

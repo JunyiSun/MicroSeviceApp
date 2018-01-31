@@ -11,9 +11,6 @@
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { GroupAddMemberComponent } from './group/group-add-member.component';
-import { GroupComponent} from './group/group.component';
-import { GroupCreateComponent} from './group/group-create.component';
 import { GroupsComponent} from './group/groups.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -24,9 +21,6 @@ import { ProfileEditComponent } from './signup/profile-edit.component';
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'groups', component: GroupsComponent },
-    { path: 'groups/group', component: GroupComponent },
-    { path: 'groups/group/create', component: GroupCreateComponent},
-    { path: 'groups/member/add', component: GroupAddMemberComponent},
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'signup', component: ProfileCreateComponent },

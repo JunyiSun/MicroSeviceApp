@@ -10,8 +10,6 @@
 // ******************************************************************************
 package net.wasdev.sample.microprofile.user;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -19,11 +17,7 @@ import org.bson.types.ObjectId;
 
 /** An Object representation of the user data stored in MongoDB. */
 public class User {
-  /** The collection name used in MongoDB. */
-  public static final String DB_COLLECTION_NAME = "users";
 
-  /** The field name of the unique ID in MongoDB. */
-  public static final String DB_ID = "_id";
 
   /* These are the keys used to store the user data in MongoDB */
   public static final String JSON_KEY_USER_ID = "id";
@@ -125,32 +119,4 @@ public class User {
     return user.build();
   }
 
-  /** Return an object suitable to create a new user in MongoDB. */
-  public BasicDBObject getDBObject(boolean includeId) {
-    BasicDBObject user = new BasicDBObject();
-    if (includeId) {
-      user.append(DB_ID, new ObjectId(id));
-    }
-    user.append(JSON_KEY_USER_FIRST_NAME, firstName);
-    user.append(JSON_KEY_USER_LAST_NAME, lastName);
-    user.append(JSON_KEY_USER_NAME, userName);
-    user.append(JSON_KEY_USER_WISH_LIST_LINK, wishListLink);
-    user.append(JSON_KEY_USER_PASSWORD_HASH, passwordHash);
-    user.append(JSON_KEY_USER_PASSWORD_SALT, passwordSalt);
-
-    return user;
-  }
-
-  /**
-   * Return a DBObject that can be used for updating the user in the mongo database. We only include
-   * the fields that the client should be changing (leave out the internal fields).
-   */
-  public DBObject getDBObjectForModify() {
-    BasicDBObject user = new BasicDBObject();
-    user.append(JSON_KEY_USER_FIRST_NAME, firstName);
-    user.append(JSON_KEY_USER_LAST_NAME, lastName);
-    user.append(JSON_KEY_USER_WISH_LIST_LINK, wishListLink);
-
-    return user;
-  }
 }

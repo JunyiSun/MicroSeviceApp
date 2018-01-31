@@ -3,13 +3,13 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <parent>
     <groupId>microprofile.gift.demo</groupId>
     <artifactId>acmeGifts</artifactId>
@@ -17,11 +17,11 @@
   </parent>
   <artifactId>microservice-group</artifactId>
   <packaging>war</packaging>
-  
+
   <properties>
     <!-- Liberty server properties -->
     <server.name>groupServer</server.name>
-      
+
     <!-- Application properties -->
     <warfile.name>groupMicroservice</warfile.name>
   </properties>
@@ -50,10 +50,7 @@
        <groupId>org.springframework</groupId>
        <artifactId>spring-context</artifactId>
      </dependency>
-     <dependency>
-        <groupId>org.mongodb</groupId>
-        <artifactId>mongo-java-driver</artifactId>
-     </dependency>
+
      <dependency>
      	<groupId>javax</groupId>
      	<artifactId>javaee-api</artifactId>
@@ -72,10 +69,10 @@
        <groupId>org.eclipse.microprofile.jwt</groupId>
        <artifactId>microprofile-jwt-auth-api</artifactId>
        <scope>provided</scope>
-     </dependency>     
+     </dependency>
   </dependencies>
-      
-      
+
+
   <build>
         <plugins>
             <!-- Copy the Group application to the liberty server -->
@@ -120,27 +117,15 @@
                     			</resource>
                     		</resources>
                     	</configuration>
-                    </execution>                    
+                    </execution>
                 </executions>
             </plugin>
 
-            <!-- Copy the mongo-java-driver jar to the shared resource directory. -->
+          
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
-                    <execution>
-                        <id>copy-mongodb-dependency-to-liberty</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeArtifactIds>mongo-java-driver</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
-                            <stripVersion>true</stripVersion>
-                        </configuration>
-                    </execution>
                     <!-- Copy the keystore that Liberty will use -->
                     <execution>
                         <id>copy-keystore-to-liberty</id>
@@ -178,7 +163,7 @@
                             <goal>create-server</goal>
                         </goals>
                     </execution>
-                    
+
                     <!-- Start the server before running the tests. -->
                     <execution>
                         <id>start-server</id>
@@ -187,7 +172,7 @@
                             <goal>start-server</goal>
                         </goals>
                     </execution>
-                    
+
                      <!-- Stop the server after running the tests. -->
                     <execution>
                         <id>stop-server</id>
@@ -206,8 +191,6 @@
                         <app.name>${warfile.name}.war</app.name>
                         <http.port>${group.http.port}</http.port>
                         <https.port>${group.https.port}</https.port>
-                        <mongo.port>${group.mongo.port}</mongo.port>
-                        <mongo.hostname>${group.mongo.hostname}</mongo.hostname>
                         <jwt.issuer>${jwt.issuer}</jwt.issuer>
                     </bootstrapProperties>
                 </configuration>
@@ -244,8 +227,7 @@
                         <liberty.test.hostname>${group.hostname}</liberty.test.hostname>
                         <liberty.test.port>${group.http.port}</liberty.test.port>
                         <liberty.test.ssl.port>${group.https.port}</liberty.test.ssl.port>
-                        <mongo.test.hostname>${group.mongo.hostname}</mongo.test.hostname>
-                        <mongo.test.port>${group.mongo.port}</mongo.test.port>
+
                         <jwt.issuer>${jwt.issuer}</jwt.issuer>
                     </systemPropertyVariables>
                 </configuration>
@@ -268,44 +250,9 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>start-database</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>../run-app/startMongo${script.extension}</executable>
-                            <arguments>
-                                <argument>groupDB</argument>
-                                <argument>${group.mongo.port}</argument>
-                                <argument>${mongo.path}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>stop-database</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>../run-app/stopMongo${script.extension}</executable>
-                            <arguments>
-                                <argument>groupDB</argument>
-                                <argument>${mongo.path}</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>non-windows</id>

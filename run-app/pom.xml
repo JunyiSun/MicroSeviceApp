@@ -156,22 +156,6 @@
                                 </configuration>
                             </execution>
 
-                            <!-- Group Database -->
-                            <execution>
-                                <id>start-group-db</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-group</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>exec:exec@start-database</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
 
 
                         </executions>
@@ -276,7 +260,7 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
-                          
+
 
                             <!-- UI Microservice -->
                             <execution>
@@ -378,22 +362,7 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-                            <!-- Group Database -->
-                            <execution>
-                                <id>stop-group-db</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-group</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>exec:exec@stop-database</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
+
 
                         </executions>
                     </plugin>
