@@ -3,7 +3,7 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
@@ -256,39 +256,6 @@
                                 </configuration>
                             </execution>
 
-                            <!-- Notification Microservice -->
-                            <execution>
-                                <id>start-notification-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-notification</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:start-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-
-                            <!-- Notification V1_1 Microservice -->
-                            <execution>
-                                <id>start-notification_v1_1-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-notification_v1_1</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:start-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
 
                             <!-- UI Microservice -->
                             <execution>
@@ -373,39 +340,6 @@
                                 </configuration>
                             </execution>
 
-                            <!-- Notification V1_1 Microservice -->
-                            <execution>
-                                <id>stop-notification_v1_1-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-notification_v1_1</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:stop-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-
-                            <!-- Notification Microservice -->
-                            <execution>
-                                <id>stop-notification-service</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <async>false</async>
-                                    <workingDirectory>../microservice-notification</workingDirectory>
-                                    <executable>mvn${mvn.extension}</executable>
-                                    <arguments>
-                                        <argument>liberty:stop-server</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
 
                             <!-- Group Microservice -->
                             <execution>

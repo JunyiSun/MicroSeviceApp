@@ -78,14 +78,6 @@
         <occasion.mongo.hostname>localhost</occasion.mongo.hostname>
         <occasion.mongo.port>5058</occasion.mongo.port>
 
-        <notification.hostname>localhost</notification.hostname>
-        <notification.http.port>5059</notification.http.port>
-        <notification.https.port>5060</notification.https.port>
-
-        <notification_1_1.hostname>localhost</notification_1_1.hostname>
-        <notification_1_1.http.port>5061</notification_1_1.http.port>
-        <notification_1_1.https.port>5062</notification_1_1.https.port>
-
         <frontend.http.port>5063</frontend.http.port>
         <frontend.https.port>5064</frontend.https.port>
         <frontend.hostname>localhost</frontend.hostname>
@@ -350,10 +342,8 @@
         <module>microservice-auth</module>
         <module>microservice-user</module>
         <module>microservice-group</module>
-        <module>microservice-notification</module>
         <module>microservice-occasion</module>
         <module>front-end-ui</module>
-        <module>microservice-notification_v1_1</module>
         <module>run-app</module>
     </modules>
 </project>
