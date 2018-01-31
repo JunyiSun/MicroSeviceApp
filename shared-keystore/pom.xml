@@ -3,7 +3,7 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
@@ -39,7 +39,7 @@
           <scope>provided</scope>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <!-- Generate the keystore used by the Liberty servers -->
@@ -73,31 +73,7 @@
                     <skipIfExist>true</skipIfExist>
                   </configuration>
                 </execution>
-                <!-- Import the certificate signers used by Twitter -->
-                <execution>
-                  <goals>
-                    <goal>importCertificate</goal>
-                  </goals>
-                  <id>addTwitter1</id>
-                  <phase>generate-resources</phase>
-                  <configuration>
-                    <alias>Twitter1</alias>
-                    <file>${basedir}/certs/DigiCertSHA2HighAssuranceServerCA.crt</file>
-                    <trustcacerts>true</trustcacerts>
-                  </configuration>
-                </execution>
-                <execution>
-                  <goals>
-                    <goal>importCertificate</goal>
-                  </goals>
-                  <id>addTwitter2</id>
-                  <phase>generate-resources</phase>
-                  <configuration>
-                    <alias>Twitter2</alias>
-                    <file>${basedir}/certs/DigiCertSHA2SecureServerCA.crt</file>
-                    <trustcacerts>true</trustcacerts>
-                  </configuration>
-                </execution>
+            
               </executions>
               <!-- Global configuration for the keytool plugin -->
               <configuration>

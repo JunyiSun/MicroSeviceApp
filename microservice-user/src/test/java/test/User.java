@@ -31,7 +31,6 @@ public class User {
   public static final String JSON_KEY_USER_FIRST_NAME = "firstName";
   public static final String JSON_KEY_USER_LAST_NAME = "lastName";
   public static final String JSON_KEY_USER_NAME = "userName";
-  public static final String JSON_KEY_USER_TWITTER_HANDLE = "twitterHandle";
   public static final String JSON_KEY_USER_WISH_LIST_LINK = "wishListLink";
   public static final String JSON_KEY_USER_PASSWORD = "password";
 
@@ -39,7 +38,6 @@ public class User {
   public String firstName;
   public String lastName;
   public String userName;
-  public String twitterHandle;
   public String wishListLink;
   public String password;
 
@@ -48,7 +46,6 @@ public class User {
     firstName = jObject.getString(JSON_KEY_USER_FIRST_NAME);
     lastName = jObject.getString(JSON_KEY_USER_LAST_NAME);
     userName = jObject.getString(JSON_KEY_USER_NAME);
-    twitterHandle = jObject.getString(JSON_KEY_USER_TWITTER_HANDLE);
     wishListLink = jObject.getString(JSON_KEY_USER_WISH_LIST_LINK);
     password = jObject.getString(JSON_KEY_USER_PASSWORD, "");
   }
@@ -58,14 +55,12 @@ public class User {
       String firstName,
       String lastName,
       String userName,
-      String twitterHandle,
       String wishListLink,
       String password) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.userName = userName;
-    this.twitterHandle = twitterHandle;
     this.wishListLink = wishListLink;
     this.password = password;
   }
@@ -83,7 +78,6 @@ public class User {
     user.add(JSON_KEY_USER_FIRST_NAME, firstName);
     user.add(JSON_KEY_USER_LAST_NAME, lastName);
     user.add(JSON_KEY_USER_NAME, userName);
-    user.add(JSON_KEY_USER_TWITTER_HANDLE, twitterHandle);
     user.add(JSON_KEY_USER_WISH_LIST_LINK, wishListLink);
     user.add(JSON_KEY_USER_PASSWORD, password);
 
@@ -99,7 +93,6 @@ public class User {
     user.append(JSON_KEY_USER_FIRST_NAME, firstName);
     user.append(JSON_KEY_USER_LAST_NAME, lastName);
     user.append(JSON_KEY_USER_NAME, userName);
-    user.append(JSON_KEY_USER_TWITTER_HANDLE, twitterHandle);
     user.append(JSON_KEY_USER_WISH_LIST_LINK, wishListLink);
     user.append(JSON_KEY_USER_PASSWORD, password);
 
@@ -129,7 +122,6 @@ public class User {
             && firstName.equals(other.get(JSON_KEY_USER_FIRST_NAME))
             && lastName.equals(other.get(JSON_KEY_USER_LAST_NAME))
             && userName.equals(other.get(JSON_KEY_USER_NAME))
-            && twitterHandle.equals(other.get(JSON_KEY_USER_TWITTER_HANDLE))
             && wishListLink.equals(other.get(JSON_KEY_USER_WISH_LIST_LINK))
             && hashedPassword.equals(other.get(JSON_KEY_USER_PASSWORD)))
         ? true
@@ -147,7 +139,6 @@ public class User {
         && firstName.equals(other.getString(JSON_KEY_USER_FIRST_NAME))
         && lastName.equals(other.getString(JSON_KEY_USER_LAST_NAME))
         && userName.equals(other.getString(JSON_KEY_USER_NAME))
-        && twitterHandle.equals(other.getString(JSON_KEY_USER_TWITTER_HANDLE))
         && wishListLink.equals(other.getString(JSON_KEY_USER_WISH_LIST_LINK)));
   }
 }

@@ -29,7 +29,7 @@ export class GroupCreateComponent implements OnInit {
     userId: string;
     id: string;
     group = new Group('', '', []);
-    user: User = new User('', '', '', '', '', '', '', '');
+    user: User = new User('', '', '', '', '', '');
     userGroups: Group[] = [];
     eventMessageError: string = null;
 
@@ -83,7 +83,7 @@ export class GroupCreateComponent implements OnInit {
         }
         const payload = JSON.stringify(this.group);
         this.groupService.createGroup(payload).subscribe(resp => {
-            this.id = resp['id']; 
+            this.id = resp['id'];
             this.routeToGroupsView();
         }, (err: HttpErrorResponse) => {
             if (err.error instanceof Error) {

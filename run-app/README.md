@@ -4,21 +4,21 @@
 
 ## Maven profiles
 
-1. **start-servers:** Starts all liberty servers. 
+1. **start-servers:** Starts all liberty servers.
 1. **start-databases:** Starts all mongoDBs
-1. **stop-servers:** Stops all liberty servers. 
+1. **stop-servers:** Stops all liberty servers.
 1. **stop-databases:** Stops all mongoDBs
 1. **demo:** Preloads Acme Gifts with pertinent data. Use it only after all databases and servers have been started.
-   
+
     Example Usage:
-    
+
      - From the sample-acmegifts/run-app project:
         - mvn package -P start-databases
         - mvn package -P start-servers
         - mvn package -P demo
         - mvn package -P start-databases,start-servers,demo
         - mvn package -P stop-servers,stop-databases
-        
+
      - From the sample-acmegifts root project:
         - mvn package -P start-databases -pl run-app
         - mvn package -P start-servers -pl run-app
@@ -31,19 +31,18 @@
 
 > This project allows an initial set of data to be bootstrapped into Acme Gifts. The data is contained in
 3 different JSON files located here: `run-app/src/resources`. The content of those files can be customized. The entries must follow
-the formats shown below: 
+the formats shown below:
 
-#### users.json 
+#### users.json
 
-Json file containing an array of user objects. 
-    
+Json file containing an array of user objects.
+
     Example:
     [{
         "id": "user1",
         "firstName": "John",
         "lastName": "Smith",
         "userName": "jsmith",
-        "twitterHandle": "@jsmith",
         "wishListLink": "http://my.wishlist.com/jsmith",
         "password": "jsmith"
     },...]
@@ -55,37 +54,36 @@ Json file containing an array of user objects.
 1. **firstname:** The first name of the user. It is an arbitrary name.
 1. **lastname:** The last name of the user. It is an arbitrary name. It is used to login to Acme Gifts.
 1. **username:** A unique username. It is an arbitrary name that must be unique among all usernames.
-1. **twitterHandle:** The user's twitter handle. A valid twitter handle if microservice_notification_v1_1  is used, or an arbitraty name if not.
 1. **wishListLink:** The link to the user's wishlist. It can be an arbitrary link.
 1. **password:** The user's password. It can be an arbitrary name. It is used to login to Acme Gifts.
 
 
-#### groups.json 
+#### groups.json
 
-Json file containing an array of group objects. 
-    
+Json file containing an array of group objects.
+
     For example:
-    
+
     [{
         "id": "group1",
         "name": "Co-workers",
         "members": ["user1","user2","user3"]
     },...]
- 
+
 **Where:**
-    
+
 1. **Id:** A unique group id. It must be unique among all group ids. It is replaced with another unique (valid) id during boot data processing.
 1. **name:** The name of the group. It is an arbitrary name.
 1. **members:** An array of user ids belonging to the group:
     1. **userId:** The id of the user in the group. The user id is chosen from one of the users created under users.json. The value is replaced during boot data processing.
 
 
-#### occasions.json 
+#### occasions.json
 
-Json file containing an array of occasion objects. 
+Json file containing an array of occasion objects.
 
     For example:
-    
+
     [{
         "id": "occasion1",
         "date": "year-month-day",
@@ -107,7 +105,7 @@ Json file containing an array of occasion objects.
 
 
 **Where:**
-    
+
 1. **Id:** A unique occasion id. It must be unique among all occasions. It is replaced with another unique (valid) id during boot data processing.
 1. **date:** Represents when the occasion is to take place. The value 'year-month-day' is replaced
         during boot procession with a date randomly selected between 90 to 200 days from the current date.
@@ -122,48 +120,48 @@ Json file containing an array of occasion objects.
 
 
 ### Sample data details
-    
+
 The sample boot data files define 5 users, 2 groups, and 4 occasion as follows:
 
-    Users: 
-        1. John Smith 
-        2. Fred Murphy 
-        3. Stacey White 
-        4. Linda Williams 
+    Users:
+        1. John Smith
+        2. Fred Murphy
+        3. Stacey White
+        4. Linda Williams
         5. Allen Grants      
 
-    Groups: 
-        1. Friends 
-           - John Smith 
-           - Fred Murphy 
-           - Stacey White 
+    Groups:
+        1. Friends
+           - John Smith
+           - Fred Murphy
+           - Stacey White
 
-        2. Co-workers 
-           - John Smith 
-           - Linda Williams 
-           - Allen Grants 
+        2. Co-workers
+           - John Smith
+           - Linda Williams
+           - Allen Grants
 
     Occasions:
-        1. John's Birthday: 
-           - Group: Friends 
-           - Organizer: Fred Murphy 
-           - Recipient: John Smith 
-           - Contributors: Fred M. and Stacey W. 
-    
-        2. John's Birthday: 
-           - Group: Co-workers 
-           - Organizer: Linda Williams 
-           - Recipient: John Smith 
-           - Contributors: Linda W. and Allen G. 
-           
-        3. Stacy's Retirement Party: 
-           - Group: Friends 
-           - Organizer: John Smith 
-           - Recipient:Stacey White 
-           - Contributors: John S. and Fred M. 
-           
-        4. Linda's Birthday: 
-           - Group: Co-workers 
-           - Organizer: John Smith 
-           - Recipient: Linda Williams 
+        1. John's Birthday:
+           - Group: Friends
+           - Organizer: Fred Murphy
+           - Recipient: John Smith
+           - Contributors: Fred M. and Stacey W.
+
+        2. John's Birthday:
+           - Group: Co-workers
+           - Organizer: Linda Williams
+           - Recipient: John Smith
+           - Contributors: Linda W. and Allen G.
+
+        3. Stacy's Retirement Party:
+           - Group: Friends
+           - Organizer: John Smith
+           - Recipient:Stacey White
+           - Contributors: John S. and Fred M.
+
+        4. Linda's Birthday:
+           - Group: Co-workers
+           - Organizer: John Smith
+           - Recipient: Linda Williams
            - Contributors: John S. and Allen G.

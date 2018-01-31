@@ -26,8 +26,6 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ProfileEditComponent } from './signup/profile-edit.component';
 import { ProfileCreateComponent } from './signup/profile-create.component';
-import { TwitterLoginComponent } from './login/twitter.login.component';
-import { TwitterVerifyComponent } from './login/twitter.verify.component';
 import { UserService } from './user/services/user.service';
 import { routing } from './app-routing.module';
 
@@ -42,9 +40,7 @@ import { routing } from './app-routing.module';
         LoginComponent,
         LogoutComponent,
         ProfileCreateComponent,
-        ProfileEditComponent,
-        TwitterLoginComponent,
-        TwitterVerifyComponent
+        ProfileEditComponent
     ],
     imports: [
         BrowserModule,

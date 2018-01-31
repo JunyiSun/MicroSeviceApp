@@ -35,7 +35,7 @@ export class GroupsComponent implements OnInit {
 
     groups: Group[];
     userId = '';
-    user: User = new User('', '', '', '', '', '', '', '');
+    user: User = new User('', '', '', '', '', '');
     loggedInUserTotalContribution = 0;
     loggedInUserGroupContributionList: GroupContribution[] = [];
     eventMessageError: string = null;
@@ -128,7 +128,7 @@ export class GroupsComponent implements OnInit {
     getGroupsForUser() {
         this.groupService.getGroups(this.userId).subscribe(resp => {
             this.groups = resp.groups;
-            
+
         }, err => {
              this.eventMessageError = 'An error occurred obtaining the groups from the server.';
         });

@@ -81,8 +81,7 @@ public class LoginResourceTest {
             + new JWTVerifier()
                 .createJWT("unauthenticated", new HashSet<String>(Arrays.asList("login")));
     String url = "https://" + libertyHostname + ":" + libertySslPort + "/users";
-    User user =
-        new User(null, "Niels", "Bohr", "nBohr", "@nBohr", "nBohrWishListLink", "myPassword");
+    User user = new User(null, "Niels", "Bohr", "nBohr", "nBohrWishListLink", "myPassword");
     Response response = processRequest(url, "POST", user.getJson(), loginAuthHeader);
     assertEquals(
         "HTTP response code should have been " + Status.OK.getStatusCode() + ".",
@@ -139,8 +138,7 @@ public class LoginResourceTest {
             + new JWTVerifier()
                 .createJWT("unauthenticated", new HashSet<String>(Arrays.asList("login")));
     String url = "https://" + libertyHostname + ":" + libertySslPort + "/users";
-    User user =
-        new User(null, "Niels", "Bohr", "nBohr", "@nBohr", "nBohrWishListLink", "myPassword");
+    User user = new User(null, "Niels", "Bohr", "nBohr", "nBohrWishListLink", "myPassword");
     Response response = processRequest(url, "POST", user.getJson(), loginAuthHeader);
     assertEquals(
         "HTTP response code should have been " + Status.OK.getStatusCode() + ".",
@@ -183,8 +181,7 @@ public class LoginResourceTest {
             + new JWTVerifier()
                 .createJWT("unauthenticated", new HashSet<String>(Arrays.asList("login")));
     String url = "https://" + libertyHostname + ":" + libertySslPort + "/users";
-    User user =
-        new User(null, "Niels", "Bohr", "nBohr", "@nBohr", "nBohrWishListLink", "myPassword");
+    User user = new User(null, "Niels", "Bohr", "nBohr", "nBohrWishListLink", "myPassword");
     Response response = processRequest(url, "POST", user.getJson(), loginAuthHeader);
     assertEquals(
         "HTTP response code should have been " + Status.OK.getStatusCode() + ".",
@@ -227,8 +224,7 @@ public class LoginResourceTest {
             + new JWTVerifier()
                 .createJWT("unauthenticated", new HashSet<String>(Arrays.asList("login")));
     String url = "https://" + libertyHostname + ":" + libertySslPort + "/users";
-    User user =
-        new User(null, "Niels", "Bohr", "nBohr", "@nBohr", "nBohrWishListLink", "myPassword");
+    User user = new User(null, "Niels", "Bohr", "nBohr", "nBohrWishListLink", "myPassword");
     Response response = processRequest(url, "POST", user.getJson(), loginAuthHeader);
     assertEquals(
         "HTTP response code should have been " + Status.OK.getStatusCode() + ".",

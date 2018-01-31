@@ -41,7 +41,7 @@ export class GroupComponent implements OnInit {
     userId: string;
     groupId: string;
     group: Group = new Group('', '', []);
-    user: User = new User('', '', '', '', '', '', '', '');
+    user: User = new User('', '', '', '', '', '');
     addedMembers: User[] = [];
     startGroupNameEdit = false;
     editableGroupName: string;

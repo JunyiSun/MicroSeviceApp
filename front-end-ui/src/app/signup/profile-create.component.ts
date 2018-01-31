@@ -34,8 +34,8 @@ export class ProfileCreateComponent implements OnInit {
     firefoxWarning = false;
     firefoxMessage: string = null;
     eventMessage: string = null;
-    user = new User('', '', '', '', '', '', '', '');
-    
+    user = new User('', '', '', '', '', '');
+
     constructor(private http: HttpClient,
                 private userService: UserService,
                 private authService: AuthService,
@@ -77,14 +77,14 @@ export class ProfileCreateComponent implements OnInit {
     }
 
     onCancel() {
-        this.user = new User('', '', '', '', '', '', '', '');
+        this.user = new User('', '', '', '', '', '');
         this.router.navigate(['/login']);
     }
-    
+
     onCloseEventBox() {
         this.eventMessage = null;
     }
-    
+
     routeToGroups(id: string): void {
         this.router.navigate(['/groups', {userId: id}]);
     }

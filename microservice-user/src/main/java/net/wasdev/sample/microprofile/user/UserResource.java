@@ -100,7 +100,7 @@ public class UserResource {
             .add(User.JSON_KEY_USER_PASSWORD_HASH, pwUtil.getHashedPassword())
             .add(User.JSON_KEY_USER_PASSWORD_SALT, pwUtil.getSalt());
 
-    // This will create a "non-Twitter" user from the modified JSON input.
+    // This will create a normal user from the modified JSON input.
     User user = new User(builder.build());
 
     // Build the JWT that the caller should use on all future calls.

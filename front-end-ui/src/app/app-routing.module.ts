@@ -20,8 +20,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileCreateComponent } from './signup/profile-create.component';
 import { ProfileEditComponent } from './signup/profile-edit.component';
-import { TwitterLoginComponent } from './login/twitter.login.component';
-import { TwitterVerifyComponent } from './login/twitter.verify.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,8 +29,6 @@ const routes: Routes = [
     { path: 'groups/member/add', component: GroupAddMemberComponent},
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
-    { path: 'login/twitter', component: TwitterLoginComponent },
-    { path: 'login/twitter/verify', component: TwitterVerifyComponent },
     { path: 'signup', component: ProfileCreateComponent },
     { path: 'profiles/:id/edit', component: ProfileEditComponent }
 ];

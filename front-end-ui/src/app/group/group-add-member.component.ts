@@ -39,7 +39,7 @@ export class GroupAddMemberComponent implements OnInit {
     userOptions: string[] = [];
     matchedOptions = [];
     query = '';
-    user: User = new User('', '', '', '', '', '', '', '');
+    user: User = new User('', '', '', '', '', '');
     userId: string;
     userMap: Map<string, User>;
     eventMessageError: string = null;
@@ -70,15 +70,15 @@ export class GroupAddMemberComponent implements OnInit {
 
             // Get the current group's data.
             this.groupService.getGroup(this.groupId).subscribe(resp => {
-                this.group = resp; 
+                this.group = resp;
             }, err => {
                 this.eventMessageError = 'An error occurred obtaining the group from the server.';
             });
-            
+
 
             // Get the current user's data.
             this.userService.getUser(this.userId).subscribe(resp => {
-                    this.user = resp; 
+                    this.user = resp;
                     sessionStorage.userName = this.user.userName;
                 }, err => {
                     // Report the error and stay on the same page.

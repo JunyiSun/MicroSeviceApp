@@ -3,14 +3,14 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
 <div class="body-background">
   <div [hidden]="eventMessage === null" class="eventBoxError">
     <div class="fontDark-16Px" style="margin-top:12px; c">
-      <button class="closeEventBoxButton floatRight" (click)="onCloseEventBox()">&#10006;</button> 
+      <button class="closeEventBoxButton floatRight" (click)="onCloseEventBox()">&#10006;</button>
       <img src="assets/images/icon_error.svg" height="16" width="16" style="margin-right:12px;">
       {{eventMessage}}
     </div>
@@ -48,7 +48,7 @@
           <div class="form-group inlineBlock textAlignLeft">
             <label for="username" class="fontDark-16Px">Username<br>
             </label> <input type="text" class="form-control" id="username" required [(ngModel)]="user.userName"
-              name="username" [disabled]="user.isTwitterLogin === true" class="inputDisabledOpacityReduced" #username="ngModel">
+              name="username" class="inputDisabledOpacityReduced" #username="ngModel">
             <div [hidden]="username.valid || username.pristine" class="alert alert-danger fontDarkPink-16Px">Username
               is required</div>
           </div>
@@ -56,7 +56,7 @@
           <div class="form-group inlineBlock textAlignLeft">
             <label for="password" class="fontDark-16Px">Password<br>
             </label> <input type="password" class="form-control" id="password" [(ngModel)]="user.password"
-              name="password" [disabled]="user.isTwitterLogin === true" class="inputDisabledOpacityReduced" #password="ngModel">
+              name="password" class="inputDisabledOpacityReduced" #password="ngModel">
           </div>
           <br><br>
           <div class="form-group inlineBlock textAlignLeft">
@@ -67,16 +67,8 @@
               URL is required</div>
           </div>
           <br><br>
-          <div class="form-group inlineBlock textAlignLeft">
-            <label for="twitter" class="fontDark-16Px">Twitter Handle<br>
-            </label> <input type="text" class="form-control" id="twitter" [(ngModel)]="user.twitterHandle"
-              name="twitter" [disabled]="user.isTwitterLogin === true" class="inputDisabledOpacityReduced" #twitter="ngModel">
-            <div [hidden]="twitter.valid || twitter.pristine" class="alert alert-danger fontDarkPink-16Px">Twitter
-              Handle is required</div>
-          </div>
-          <br><br>
           <div class="boxNoMarginWidth-311Px">
-            <button type="button" class="buttonBackgroundTransparentHeight-44px fontRed-16Px floatLeft" 
+            <button type="button" class="buttonBackgroundTransparentHeight-44px fontRed-16Px floatLeft"
                 (click)="onDeleteProfile()">Delete profile</button>
             <br><br><br>
             <button type="button" class="buttonBackgroundTransparentHeight-44px floatLeft fontDark-16Px"

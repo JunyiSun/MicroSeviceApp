@@ -87,27 +87,6 @@
         <jwt.shared.key>secret</jwt.shared.key>
         <jwt.issuer>http://wasdev.net</jwt.issuer>
 
-        <!-- Optional Twitter configuration -->
-        <!-- IMPORTANT. -->
-        <!-- Replace the CHANGE_ME values with valid twitter generated keys/secrets/tokens. -->
-        <!-- The consumer key/secret are required for Twitter login and for tweeting.       -->
-        <!-- The user access key/secret are only required for tweeting. -->
-        <!-- These values can be obtained from a valid twitter account application to be used on behalf of the Gifts application. -->
-        <!-- Steps for setting up and obtaining the needed values: -->
-        <!-- a. Go to: https://apps.twitter.com/ to register the 'Acme Gifts' application under a
-                valid twitter account. This account will be used on behalf of the Acme Gifts application.
-                NOTE: Be sure to fill in the 'Callback URL' section when creating the application. The entry can be a dummy URL.
-                If the application exists already, go to the 'Settings' tab and make sure something was
-                specified in the 'Callback URL' section. -->
-        <!-- b. Under the Details tab, modify the access level to 'Read, write, and direct messages'. -->
-        <!-- c. Under the 'Key and Access Tokens' tab, generate access token/secret. -->
-        <!-- d. Replace CHANGE_ME with the consumer key/secret and the access
-            token/secret generated values. -->
-            <twitter.app.consumer.key>tJkVeqH803oVdFIHGIl1MH7sl</twitter.app.consumer.key>
-            <twitter.app.consumer.secret>ip0sh4rBSMekP89jjiw5vqxWnTvty5d4bDevqQAms3E9MIQXfj</twitter.app.consumer.secret>
-            <twitter.user.access.token>2621594719-6eF7vxUXXdt6r72Io3L6YkyemlJp2NeIleDaEzv</twitter.user.access.token>
-            <twitter.user.access.secret>zpw7yMMIJodXYMrO0A7JWSUAqr8cS8iaaXQptuvAfNAgJ</twitter.user.access.secret>
-
     </properties>
 
     <repositories>

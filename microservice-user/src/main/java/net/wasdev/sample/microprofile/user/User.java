@@ -30,9 +30,7 @@ public class User {
   public static final String JSON_KEY_USER_FIRST_NAME = "firstName";
   public static final String JSON_KEY_USER_LAST_NAME = "lastName";
   public static final String JSON_KEY_USER_NAME = "userName";
-  public static final String JSON_KEY_USER_TWITTER_HANDLE = "twitterHandle";
   public static final String JSON_KEY_USER_WISH_LIST_LINK = "wishListLink";
-  public static final String JSON_KEY_USER_TWITTER_LOGIN = "isTwitterLogin";
   public static final String JSON_KEY_USER_PASSWORD_HASH = "password";
   public static final String JSON_KEY_USER_PASSWORD_SALT = "salt";
 
@@ -48,9 +46,6 @@ public class User {
   /** The name that the user will use to log into the application. */
   private String userName;
 
-  /** The user's twitter username. */
-  private String twitterHandle;
-
   /** A URL pointing to the user's wish list. */
   private String wishListLink;
 
@@ -60,20 +55,15 @@ public class User {
   /** The generated salt that is contained in the hashed password. */
   private String passwordSalt;
 
-  /** Was this user created here, or as a result of a twitter login? */
-  private boolean isTwitterLogin;
-
   /** Constructor for reading a user from the database */
   public User(DBObject user) {
     this.id = ((ObjectId) user.get(DB_ID)).toString();
     this.firstName = (String) user.get(JSON_KEY_USER_FIRST_NAME);
     this.lastName = (String) user.get(JSON_KEY_USER_LAST_NAME);
     this.userName = (String) user.get(JSON_KEY_USER_NAME);
-    this.twitterHandle = (String) user.get(JSON_KEY_USER_TWITTER_HANDLE);
     this.wishListLink = (String) user.get(JSON_KEY_USER_WISH_LIST_LINK);
     this.passwordHash = (String) user.get(JSON_KEY_USER_PASSWORD_HASH);
     this.passwordSalt = (String) user.get(JSON_KEY_USER_PASSWORD_SALT);
-    this.isTwitterLogin = (Boolean) user.get(JSON_KEY_USER_TWITTER_LOGIN);
   }
 
   /** Constructor for reading the user from the JSON that was a part of a JAX-RS request. */
@@ -83,9 +73,7 @@ public class User {
     }
     this.firstName = user.getString(JSON_KEY_USER_FIRST_NAME, "");
     this.lastName = user.getString(JSON_KEY_USER_LAST_NAME, "");
-    this.twitterHandle = user.getString(JSON_KEY_USER_TWITTER_HANDLE, "");
     this.wishListLink = user.getString(JSON_KEY_USER_WISH_LIST_LINK, "");
-    this.isTwitterLogin = user.getBoolean(JSON_KEY_USER_TWITTER_LOGIN, false);
 
     if (user.containsKey(JSON_KEY_USER_NAME)) {
       this.userName = user.getString(JSON_KEY_USER_NAME);
@@ -96,51 +84,6 @@ public class User {
     if (user.containsKey(JSON_KEY_USER_PASSWORD_SALT)) {
       this.passwordSalt = user.getString(JSON_KEY_USER_PASSWORD_SALT);
     }
-  }
-
-  /**
-   * Create a User object from a Twitter login
-   *
-   * @param name The user name as reported by Twitter. We will try to parse this into a first and
-   *     last name. This value may be null.
-   * @param twitterHandle The twitter user's name. This will become the user name for the user.
-   * @return A partial User object. The user will need to edit their profile to complete it.
-   */
-  public User(String name, String twitterHandle) {
-    // Try to parse the name into a first and last name.
-    if (name != null) {
-      String aName = name.trim();
-      if (aName.length() > 0) {
-        int indexOfLastSpace = aName.lastIndexOf(' ');
-        if (indexOfLastSpace != -1) {
-          // Separate first/last name on the last space.
-          this.firstName = aName.substring(0, indexOfLastSpace);
-          this.lastName = aName.substring(indexOfLastSpace + 1);
-        } else {
-          // Couldn't find a space - just use this as last name.
-          this.lastName = aName;
-          this.firstName = "";
-        }
-      } else {
-        this.lastName = "";
-        this.firstName = "";
-      }
-    } else {
-      this.lastName = "";
-      this.firstName = "";
-    }
-
-    // Use the twitter handle as the user name and the twitter handle.
-    this.userName = twitterHandle;
-    this.twitterHandle = twitterHandle;
-
-    // We don't store any password information for twitter users. The
-    // wish list link will need to be filled in manually using the
-    // user editor in the application.
-    this.passwordHash = "";
-    this.passwordSalt = "";
-    this.wishListLink = "";
-    this.isTwitterLogin = true;
   }
 
   public String getFirstName() {
@@ -155,10 +98,6 @@ public class User {
     return userName;
   }
 
-  public String getTwitterHandle() {
-    return twitterHandle;
-  }
-
   public String getWishListLink() {
     return wishListLink;
   }
@@ -171,10 +110,6 @@ public class User {
     return passwordSalt;
   }
 
-  public boolean isTwitterLogin() {
-    return isTwitterLogin;
-  }
-
   /**
    * Return a JSON object suitable to be returned to the caller with no confidential information
    * (like password or salt).
@@ -185,9 +120,7 @@ public class User {
     user.add(JSON_KEY_USER_FIRST_NAME, firstName);
     user.add(JSON_KEY_USER_LAST_NAME, lastName);
     user.add(JSON_KEY_USER_NAME, userName);
-    user.add(JSON_KEY_USER_TWITTER_HANDLE, twitterHandle);
     user.add(JSON_KEY_USER_WISH_LIST_LINK, wishListLink);
-    user.add(JSON_KEY_USER_TWITTER_LOGIN, isTwitterLogin);
 
     return user.build();
   }
@@ -201,11 +134,9 @@ public class User {
     user.append(JSON_KEY_USER_FIRST_NAME, firstName);
     user.append(JSON_KEY_USER_LAST_NAME, lastName);
     user.append(JSON_KEY_USER_NAME, userName);
-    user.append(JSON_KEY_USER_TWITTER_HANDLE, twitterHandle);
     user.append(JSON_KEY_USER_WISH_LIST_LINK, wishListLink);
     user.append(JSON_KEY_USER_PASSWORD_HASH, passwordHash);
     user.append(JSON_KEY_USER_PASSWORD_SALT, passwordSalt);
-    user.append(JSON_KEY_USER_TWITTER_LOGIN, isTwitterLogin);
 
     return user;
   }
@@ -220,20 +151,6 @@ public class User {
     user.append(JSON_KEY_USER_LAST_NAME, lastName);
     user.append(JSON_KEY_USER_WISH_LIST_LINK, wishListLink);
 
-    // If the user logs in with Twitter, don't let them change their
-    // twitter handle, username, or password.
-    if (isTwitterLogin == false) {
-      user.append(JSON_KEY_USER_TWITTER_HANDLE, twitterHandle);
-      if (userName != null) {
-        user.append(JSON_KEY_USER_NAME, userName);
-      }
-      if (passwordHash != null) {
-        user.append(JSON_KEY_USER_PASSWORD_HASH, passwordHash);
-      }
-      if (passwordSalt != null) {
-        user.append(JSON_KEY_USER_PASSWORD_SALT, passwordSalt);
-      }
-    }
     return user;
   }
 }

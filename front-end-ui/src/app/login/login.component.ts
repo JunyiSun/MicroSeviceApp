@@ -33,15 +33,6 @@ export class LoginComponent implements OnInit {
     LOGIN_RC_ERR_FIREFOX_SEC_MSG = 'NOTE: You are using Firefox. Special security certificate processing is needed. ' +
      'See the documentation for more details.';
 
-    LOGIN_TWTR_RC_ERR_RETRY_PARM = 'retryMessage';
-
-    LOGIN_TWTR_RC_ERR_RETRY_UNAME_PSWD = 'retryUserPw';
-    LOGIN_TWTR_RC_ERR_RETRY_UNAME_PSWD_MSG = 'Login with a username and password';
-    LOGIN_TWTR_RC_ERR_NO_CONFIG = 'noTwitterConfig';
-    LOGIN_TWTR_RC_ERR_NO_CONFIG_MSG = 'Twitter configuration (pom.xml) is not present.';
-    LOGIN_TWTR_RC_ERR_SRVR_ERROR = 'serverError';
-    LOGIN_TWTR_RC_ERR_SRVR_ERROR_MSG = 'A server error (HTTP 500) occurred.';
-
     login = new Login('', '');
     private sub: any = null;
     firefoxWarning = false;
@@ -58,24 +49,6 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this.firefoxWarning = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         this.firefoxMessage = null;
-
-        this.sub = this.route.queryParams.subscribe(params => {
-            if ('retryMessage' in params) {
-                const retryCode: string = params[this.LOGIN_TWTR_RC_ERR_RETRY_PARM];
-                if (retryCode === this.LOGIN_TWTR_RC_ERR_RETRY_UNAME_PSWD) {
-                    this.eventMessage = this.LOGIN_TWTR_RC_ERR_RETRY_UNAME_PSWD_MSG;
-                } else if (retryCode === this.LOGIN_TWTR_RC_ERR_NO_CONFIG) {
-                    this.eventMessage = this.LOGIN_TWTR_RC_ERR_NO_CONFIG_MSG;
-                } else if (retryCode === this.LOGIN_TWTR_RC_ERR_SRVR_ERROR) {
-                    this.eventMessage = this.LOGIN_TWTR_RC_ERR_SRVR_ERROR_MSG;
-                    if (this.firefoxWarning) {
-                        this.firefoxMessage = this.LOGIN_RC_ERR_FIREFOX_SEC_MSG;
-                    }
-                } else {
-                    this.eventMessage = 'Error message \'' + retryCode + '\' is not defined.';
-                }
-            }
-        });
     }
 
     onLoginUser(): void {
@@ -87,9 +60,7 @@ export class LoginComponent implements OnInit {
 
             this.loginService.login(body).subscribe((res: HttpResponse<any>) => {
                 const id: string = res.body['id'];
-                const twitterLogin: boolean = res.body['twitter'];
 
-                if (twitterLogin === false) {
                     // Cache the JWT for use on future calls.
                     sessionStorage.jwt = res.headers.get('Authorization');
 
@@ -105,10 +76,7 @@ export class LoginComponent implements OnInit {
                         delete sessionStorage.jwt;
                         this.eventMessage = this.LOGIN_RC_ERR_USR_NOT_RETRIEVED;
                     });
-                } else {
-                    // Stay here and ask user to try again.
-                    this.eventMessage = 'You must login with Twitter';
-                }
+
             }, (err: HttpErrorResponse) => {
                 if (err.error instanceof Error) {
                     // Client error or network error.
@@ -140,10 +108,6 @@ export class LoginComponent implements OnInit {
         }, (err: HttpErrorResponse) => {
             this.eventMessage = `Auth server error (HTTP ${err.status}) has occurred.`;
         });
-    }
-
-    onTwitterSignIn() {
-        this.router.navigate(['/login/twitter']);
     }
 
     onCloseEventBox() {

@@ -28,14 +28,14 @@ export class ProfileEditComponent implements OnInit {
     USER_DELETE_RC_ERR_SERVER = 'User microservice server error during user deletion.';
     USER_UPDATE_RC_ERR_USERNAME_EXITS = 'The username you specified is already taken.';
     USER_RC_ERR_UNAUTH = 'The request was not authorized. Please be sure you are logged in before you continue.';
-    
+
     userId: string;
     usernameAlreadyExists = false;
     eventMessage: string = null;
-    user = new User('', '', '', '', '', '', '', '');
-    cachedUser = new User('', '', '', '', '', '', '', '');
+    user = new User('', '', '', '', '', '');
+    cachedUser = new User('', '', '', '', '', '');
     returnUrl: string;
-    
+
     constructor(private route: ActivatedRoute,
                 private http: HttpClient,
                 private userService: UserService,
@@ -44,7 +44,7 @@ export class ProfileEditComponent implements OnInit {
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
-        
+
         this.route.paramMap.subscribe(params => {
             this.userId = params.get('id');
 
@@ -55,8 +55,8 @@ export class ProfileEditComponent implements OnInit {
             }
 
             // Get the current user's data.
-            this.userService.getUser(this.userId).subscribe(resp => { 
-                    this.user = resp; 
+            this.userService.getUser(this.userId).subscribe(resp => {
+                    this.user = resp;
                     this.cachedUser = this.user;
                     sessionStorage.userName = this.user.userName;
                 }, err => {
@@ -90,7 +90,7 @@ export class ProfileEditComponent implements OnInit {
         this.user = this.cachedUser;
         this.location.back();
     }
-    
+
     onDeleteProfile() {
         this.userService.deleteUser(this.userId)
         .subscribe((httpResp: HttpResponse<any>) => {
@@ -98,7 +98,7 @@ export class ProfileEditComponent implements OnInit {
         }, (err: any) => {
             if (err.status === 401) {
                 this.eventMessage = this.USER_RC_ERR_UNAUTH;
-            } else { 
+            } else {
                 this.eventMessage = this.USER_DELETE_RC_ERR_SERVER;
             }
         });

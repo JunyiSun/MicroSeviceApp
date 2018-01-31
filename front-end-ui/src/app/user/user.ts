@@ -15,8 +15,6 @@ export class User {
     public lastName: string,
     public userName: string,
     public wishListLink: string,
-    public twitterHandle: string,
-    public password: string,
-    public isTwitterLogin: string
+    public password: string
   ) {}
 }

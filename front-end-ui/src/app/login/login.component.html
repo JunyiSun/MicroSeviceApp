@@ -3,14 +3,14 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
 <div class="body-background">
   <div [hidden]="eventMessage === null" class="eventBoxError">
     <div class="fontDark-16Px" style="margin-top:12px; margin-left:20px;">
-      <button class="closeEventBoxButton floatRight" (click)="onCloseEventBox()">&#10006;</button> 
+      <button class="closeEventBoxButton floatRight" (click)="onCloseEventBox()">&#10006;</button>
       <img src="assets/images/icon_error.svg" height="16" width="16" style="margin-right:12px;">
       {{eventMessage}}
     </div>
@@ -53,10 +53,6 @@
         </div>
       </form>
       <br><br><br><br>
-      <button class="buttonBackgroundTransparentMarginYellowWidth190 fontYellow-16Px"
-        (click)="onTwitterSignIn()">
-        <img src="assets/images/icon_twitter.svg" height="16" width="16"> Sign in with Twitter
-      </button>
     </div>
     <br><br><br><br><br>
     <div class="footer-margin">
