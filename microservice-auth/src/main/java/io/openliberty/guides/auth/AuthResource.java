@@ -8,7 +8,7 @@
 //  Contributors:
 //  IBM Corporation - initial API and implementation
 // ******************************************************************************
-package net.wasdev.sample.microprofile.auth;
+package io.openliberty.guides.auth;
 
 import com.ibm.websphere.security.jwt.Claims;
 import com.ibm.websphere.security.jwt.JwtBuilder;

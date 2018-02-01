@@ -36,6 +36,7 @@ hs_err_pid*
 *.pem
 
 temp/
+.apt_generated/
 .classpath
 .project
 .editorconfig

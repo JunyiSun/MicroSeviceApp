@@ -14,6 +14,7 @@
 # dependencies
 /npm_build/node
 /npm_build/node_modules
+/npm_build/etc
 
 # IDEs and editors
 /.idea

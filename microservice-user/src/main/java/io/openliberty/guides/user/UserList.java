@@ -1,4 +1,4 @@
-package net.wasdev.sample.microprofile.user;
+package io.openliberty.guides.user;
 
 import java.util.ArrayList;
 import javax.json.Json;

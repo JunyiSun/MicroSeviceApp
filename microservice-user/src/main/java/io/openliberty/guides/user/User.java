@@ -8,7 +8,7 @@
 //  Contributors:
 //  IBM Corporation - initial API and implementation
 // ******************************************************************************
-package net.wasdev.sample.microprofile.user;
+package io.openliberty.guides.user;
 
 import javax.json.Json;
 import javax.json.JsonObject;

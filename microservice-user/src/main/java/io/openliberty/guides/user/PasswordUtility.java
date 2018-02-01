@@ -8,7 +8,7 @@
 //  Contributors:
 //  IBM Corporation - initial API and implementation
 // ******************************************************************************
-package net.wasdev.sample.microprofile.user;
+package io.openliberty.guides.user;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
