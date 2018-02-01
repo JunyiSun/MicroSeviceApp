@@ -60,7 +60,7 @@ a {
     border-top:3px solid #d44150
 }
 
-.closeEventBoxButton { 
+.closeEventBoxButton {
     line-height:24px;
     background-color:Transparent;
     width:18px;
@@ -140,7 +140,7 @@ tr.noBorderBody td {
     border-top:1px solid #63af94;
 }
 
-.footer-acme-gift {
+.footer-inventory {
     font-family:IBMPlexSans;
     font-size:14px;
     color:#e8e8e7;
@@ -200,7 +200,7 @@ input[type=text],input[type=date],input[type=number],input[type=password] {
     width:311px;
     height:44px;
     border-radius: 4px;
-    background-position: 0px 0px; 
+    background-position: 0px 0px;
     background-repeat: no-repeat;
     font-family:IBMPlexSans;
     font-size:16px;
@@ -235,14 +235,14 @@ input.inputBackgroundWhiteNoBorder {
     border:2px solid #cfcfcf;
     width:311px;
     height:44px;
-    background-position: 0px 0px; 
+    background-position: 0px 0px;
     background-repeat: no-repeat;
     padding: 3px 5px 3px 5px;
 }
 
 input[type=image].inputDisabledImgInvisible:disabled {
     opacity: 0;
-    height:0; 
+    height:0;
     width:0;
 }
 
@@ -250,14 +250,14 @@ input[type=text].inputWidth-173px {
     background:#ffffff;
     border:2px solid #cfcfcf;
     width:173px;
-    height:44px;	
+    height:44px;
 }
 
 input[type=text].inputWidth-125px {
     background:#ffffff;
     border:2px solid #cfcfcf;
     width:125px;
-    height:44px;   
+    height:44px;
 }
 
 /* Fonts */
@@ -308,7 +308,7 @@ input[type=text].inputWidth-125px {
     font-family:IBMPlexSans-Bold;
     font-size:16px;
     color:#362f3d;
-    letter-spacing:0.89px;  
+    letter-spacing:0.89px;
 }
 
 .fontLightGray-16Px {
@@ -501,7 +501,7 @@ button.buttonDisabledTransparent:disabled {
 }
 
 .div-right-64 {
-    display: inline-block;	
+    display: inline-block;
     width:64%;
 }
 
@@ -551,7 +551,7 @@ button.buttonDisabledTransparent:disabled {
     background:#ffffff;
     border:2px solid #362f3d;
     border-radius: 4px;
-    background-position: 0px 0px; 
+    background-position: 0px 0px;
     background-repeat: no-repeat;
     width:310px;
     height:44px;

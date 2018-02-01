@@ -56,7 +56,7 @@ export class GroupsComponent implements OnInit {
                 this.eventMessageError = this.MSG_USER_NOT_RETRIEVED;
             });
 
-          this.getToken();
+          // this.getToken();
         });
     }
 

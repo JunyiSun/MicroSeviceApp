@@ -11,7 +11,6 @@
   <div [hidden]="eventMessage === null" class="eventBoxError">
     <div class="fontDark-16Px" style="margin-top:12px; margin-left:20px;">
       <button class="closeEventBoxButton floatRight" (click)="onCloseEventBox()">&#10006;</button>
-      <img src="assets/images/icon_error.svg" height="16" width="16" style="margin-right:12px;">
       {{eventMessage}}
     </div>
     <div [hidden]="firefoxMessage === null" class="fontDark-16Px"  style="margin-left:52px">
@@ -25,9 +24,7 @@
     <div class="boxBackgroundWhite">
       <br> <br>
       <div class="boxNoMarginWidth-311Px">
-        <img class="floatLeft" src="assets/images/modal--img_left.svg" height="50" width="50">
         <span class="fontDark-24Px">Create Profile</span>
-        <img class="floatRight" src="assets/images/modal--img_right.svg" height="50" width="50">
       </div>
       <br><br><br>
       <div>
@@ -63,15 +60,6 @@
             <div [hidden]="password.valid || password.pristine" class="alert alert-danger fontDarkPink-16Px">Password
               is required</div>
           </div>
-          <br><br>
-          <div class="form-group inlineBlock textAlignLeft">
-            <label for="wishlist" class="fontDark-16Px">Wishlist URL<br>
-            </label> <input type="text" class="form-control" id="wishlist" required [(ngModel)]="user.wishListLink"
-              name="wishlist" #wishlist="ngModel">
-            <div [hidden]="wishlist.valid || wishlist.pristine" class="alert alert-danger fontDarkPink-16Px">Wishlist
-              URL is required</div>
-          </div>
-          <br><br>
           <br><br><br>
           <button type="button" class="buttonBackgroundTransparent inlineBlock fontDark-16Px"
             (click)="onCancel()">Cancel</button>
@@ -85,9 +73,7 @@
   </div>
   <div class="footer-margin">
     <div class="footer">
-      <div class="footer-acme-gift inlineBlock floatLeft">ACME GIFTS</div>
-      <div class="footer-acme-gift inlineBlock floatRight">"Gift Box" image by Oksana Latysheva licensed
-        under CC By 3.0 US</div>
+      <div class="footer-inventory inlineBlock floatLeft">INVENTORY</div>
     </div>
   </div>
 </div>

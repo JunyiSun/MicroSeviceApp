@@ -11,26 +11,25 @@
   <div [hidden]="eventMessageError === null" class="eventBoxError">
     <div class="fontDark-16Px" style="margin-top:14px; margin-left:20px;">
       <button class="closeEventBoxButton floatRight" (click)="onCloseEventErrorBox()">&#10006;</button>
-      <img src="assets/images/icon_error.svg" height="16" width="16" style="margin-right:12px;">
       {{eventMessageError}}
     </div>
   </div>
   <div class="body-margin">
     <br> <br>
     <div>
-      <label for="createGroup" class="fontXlightGray-24Px floatLeft">Your Groups</label>
+      <label for="createGroup" class="fontXlightGray-24Px floatLeft">Your System Information</label>
     </div>
     <br> <br> <br>
     <hr class="body-line-separator">
     <div>
-      <p>{{onBla()}}</p>
+      <p class="fontYellow-16Px">{{onBla()}}</p>
       <br>
     </div>
     <br> <br> <br>
   </div>
   <div class="footer-margin">
     <div class="footer">
-      <div class="footer-acme-gift">ACME GIFTS</div>
+      <div class="footer-inventory">INVENTORY</div>
     </div>
   </div>
 </div>

@@ -27,12 +27,6 @@ export class HeaderComponent implements OnInit {
     constructor(private router: Router,
                 iconRegistry: MdIconRegistry,
                 sanitizer: DomSanitizer) {
-        // Need to register the icon that we'll use to display the menu
-        // in the header.  This is required by the material code that
-        // we use to display the menu (icon).
-        iconRegistry.addSvgIcon(
-            'hamburger',
-            sanitizer.bypassSecurityTrustResourceUrl('assets/images/icon_menu.svg'));
     }
 
     ngOnInit() {
@@ -52,5 +46,5 @@ export class HeaderComponent implements OnInit {
     onLogout(): void {
         this.router.navigate(['logout']);
     }
-    
+
 }
