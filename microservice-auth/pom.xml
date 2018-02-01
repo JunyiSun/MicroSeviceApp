@@ -3,7 +3,7 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
@@ -11,9 +11,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>microprofile.gift.demo</groupId>
-        <artifactId>acmeGifts</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+      <groupId>io.openliberty.guides</groupId>
+      <artifactId>mpjwt</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>microservice-auth</artifactId>
     <packaging>war</packaging>
@@ -29,7 +29,7 @@
     	     that is used by SSL and to sign JWTs, as well as the public
     	     certificate signers for Twitter. -->
         <dependency>
-            <groupId>microprofile.gift.demo</groupId>
+            <groupId>io.openliberty.guides</groupId>
             <artifactId>shared-keystore</artifactId>
             <version>${version.shared.keystore}</version>
             <scope>test</scope>
@@ -122,7 +122,7 @@
                         <configuration>
                           <artifactItems>
                             <artifact>
-                              <groupId>microprofile.gift.demo</groupId>
+                              <groupId>io.openliberty.guides</groupId>
                               <artifactId>shared-keystore</artifactId>
                               <type>jar</type>
                               <overWrite>false</overWrite>
@@ -211,8 +211,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <summaryFile>${project.build.directory}/test-reports/acme-gifts/failsafe-summary.xml</summaryFile>
-                    <reportsDirectory>${project.build.directory}/test-reports/acme-gifts</reportsDirectory>
+                    <summaryFile>${project.build.directory}/test-reports/mpjwt/failsafe-summary.xml</summaryFile>
+                    <reportsDirectory>${project.build.directory}/test-reports/mpjwt</reportsDirectory>
                 </configuration>
             </plugin>
 

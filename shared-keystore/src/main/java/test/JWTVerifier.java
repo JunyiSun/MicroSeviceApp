@@ -140,7 +140,7 @@ public class JWTVerifier {
         Json.createObjectBuilder()
             .add("exp", (System.currentTimeMillis() / 1000) + 300) /* Expire time */
             .add("iat", (System.currentTimeMillis() / 1000)) /* Issued time */
-            .add("aud", "acmeGifts") /* Audience */
+            .add("aud", "simpleapp") /* Audience */
             .add("jti", Long.toHexString(System.nanoTime())) /* Unique value */
             .add("sub", username) /* Subject */
             .add("upn", username) /* Subject again */

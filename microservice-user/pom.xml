@@ -11,9 +11,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>microprofile.gift.demo</groupId>
-        <artifactId>acmeGifts</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+      <groupId>io.openliberty.guides</groupId>
+      <artifactId>mpjwt</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>microservice-user</artifactId>
     <packaging>war</packaging>
@@ -25,7 +25,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>microprofile.gift.demo</groupId>
+            <groupId>io.openliberty.guides</groupId>
             <artifactId>shared-keystore</artifactId>
             <version>${version.shared.keystore}</version>
             <scope>test</scope>
@@ -127,7 +127,7 @@
                         <configuration>
                           <artifactItems>
                             <artifact>
-                              <groupId>microprofile.gift.demo</groupId>
+                              <groupId>io.openliberty.guides</groupId>
                               <artifactId>shared-keystore</artifactId>
                               <type>jar</type>
                               <overWrite>false</overWrite>
@@ -183,8 +183,8 @@
                         <http.port>${user.http.port}</http.port>
                         <https.port>${user.https.port}</https.port>
 
-                        <acme.gifts.frontend.hostname>${frontend.hostname}</acme.gifts.frontend.hostname>
-                        <acme.gifts.frontend.port>${frontend.https.port}</acme.gifts.frontend.port>
+                        <frontend.hostname>${frontend.hostname}</frontend.hostname>
+                        <frontend.port>${frontend.https.port}</frontend.port>
                         <jwt.issuer>${jwt.issuer}</jwt.issuer>
                     </bootstrapProperties>
                 </configuration>
@@ -223,8 +223,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <summaryFile>${project.build.directory}/test-reports/acme-gifts/failsafe-summary.xml</summaryFile>
-                    <reportsDirectory>${project.build.directory}/test-reports/acme-gifts</reportsDirectory>
+                    <summaryFile>${project.build.directory}/test-reports/mpjwt/failsafe-summary.xml</summaryFile>
+                    <reportsDirectory>${project.build.directory}/test-reports/mpjwt</reportsDirectory>
                 </configuration>
             </plugin>
 

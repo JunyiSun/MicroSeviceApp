@@ -4,7 +4,7 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
@@ -12,17 +12,17 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1">
 
-  <display-name>Acme Gifts: User Microservice </display-name>
-  
+  <display-name>User Microservice </display-name>
+
   <servlet>
       <servlet-name>javax.ws.rs.core.Application</servlet-name>
   </servlet>
- 
+
   <servlet-mapping>
       <servlet-name>javax.ws.rs.core.Application</servlet-name>
       <url-pattern>/*</url-pattern>
   </servlet-mapping>
-  
+
   <!-- This security configuration puts an SSL requirement on the application. -->
   <security-constraint id="SecurityConstraint_1">
     <web-resource-collection id="WebResourceCollection_1">

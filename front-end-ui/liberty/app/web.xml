@@ -3,13 +3,13 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1">
 
-  <display-name>Acme Gifts: Frontend UI </display-name>
-  
+  <display-name>Frontend UI </display-name>
+
   <error-page>
     <error-code>404</error-code>
     <location>/</location>
   </error-page>
-  
+
   <security-constraint id="SecurityConstraint_1">
     <web-resource-collection id="WebResourceCollection_1">
       <web-resource-name>frontendUI</web-resource-name>

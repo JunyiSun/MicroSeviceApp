@@ -3,39 +3,39 @@
   are made available under the terms of the Eclipse Public License v1.0
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
- 
+
   Contributors:
   IBM Corporation - initial API and implementation
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <parent>
-    <groupId>microprofile.gift.demo</groupId>
-    <artifactId>acmeGifts</artifactId>
+    <groupId>io.openliberty.guides</groupId>
+    <artifactId>mpjwt</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>front-end-ui</artifactId>
   <packaging>war</packaging>
-  
+
   <properties>
     <!-- Liberty server properties -->
     <server.name>UIServer</server.name>
-      
+
     <!-- Application properties -->
     <warfile.name>UIService</warfile.name>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>microprofile.gift.demo</groupId>
+      <groupId>io.openliberty.guides</groupId>
       <artifactId>shared-keystore</artifactId>
       <version>${version.shared.keystore}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
-      
-      
+
+
   <build>
     <plugins>
       <plugin>
@@ -89,7 +89,7 @@
               </resources>
             </configuration>
           </execution>
-          
+
           <!-- Copy the UI application to the liberty server -->
           <execution>
             <id>copy-app-to-liberty</id>
@@ -112,7 +112,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -127,7 +127,7 @@
             <configuration>
               <artifactItems>
                 <artifact>
-                  <groupId>microprofile.gift.demo</groupId>
+                  <groupId>io.openliberty.guides</groupId>
                   <artifactId>shared-keystore</artifactId>
                   <type>jar</type>
                   <overWrite>false</overWrite>
@@ -139,7 +139,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <!-- Liberty setup. -->
       <plugin>
         <groupId>net.wasdev.wlp.maven.plugins</groupId>
@@ -153,7 +153,7 @@
               <goal>create-server</goal>
             </goals>
           </execution>
-          
+
           <!-- Start the server before running the tests. -->
           <execution>
             <id>start-server</id>
@@ -162,7 +162,7 @@
               <goal>start-server</goal>
             </goals>
           </execution>
-          
+
           <!-- Stop the server after running the tests. -->
           <execution>
             <id>stop-server</id>
@@ -172,7 +172,7 @@
             </goals>
           </execution>
         </executions>
-        
+
         <configuration>
           <serverName>${server.name}</serverName>
           <appArchive>${project.build.directory}/${warfile.name}.war</appArchive>
@@ -184,7 +184,7 @@
           </bootstrapProperties>
         </configuration>
       </plugin>
-      
+
       <plugin>
 	      <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-clean-plugin</artifactId>
@@ -202,7 +202,7 @@
 	        </filesets>
 	      </configuration>
 	    </plugin>
-	    
+
 	    <plugin>
 		    <groupId>com.github.eirslett</groupId>
 		    <artifactId>frontend-maven-plugin</artifactId>
@@ -220,11 +220,11 @@
 					  <goals>
 					    <goal>npm</goal>
 					  </goals>
-					
+
 					  <phase>generate-resources</phase>
-					  
+
 					</execution>
-					
+
 					<execution>
 			      <id>npm run build</id>
 			      <goals>
@@ -234,7 +234,7 @@
 			        <arguments>run build</arguments>
 			      </configuration>
 					</execution>
-					
+
 					<execution>
 			      <id>npm run lint</id>
 			      <goals>
@@ -244,8 +244,8 @@
 			        <arguments>run lint</arguments>
 			      </configuration>
 					</execution>
-					
-					
+
+
 			  </executions>
 			  <configuration>
 			    <nodeVersion>v8.3.0</nodeVersion>
@@ -253,7 +253,7 @@
           <workingDirectory>npm_build</workingDirectory>
 			  </configuration>
 		  </plugin>
-        
+
     </plugins>
   </build>
 </project>
